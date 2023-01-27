@@ -101,17 +101,18 @@ After running the application you can access the various components through thes
 *Note: Swagger docs are recommended*
  - UI: http://localhost:3000/
  - API Swagger Docs: http://localhost:8000/docs#/
- - API Redoc Docs: http://localhost:8000/redoc
+ - API Redoc Docs: http://localhost:8000/redoc  
+
 The database is pre-populated with two users, one an admin and the other a default user:
----  
+  
 **Admin**  
 username: `admin`  
 password: `admin`  
----  
 **Default User**  
 username: `John_Doe`  
 password: `test321`  
----  
+
+---
 ## Testing and Code Coverage
 Run all the command in the venv you set up previously
  - `cd ./backend/` 
