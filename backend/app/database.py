@@ -13,7 +13,7 @@ def add_data_to_db(db): # pragma: no cover
     db.add(models.User(
         email="admin@admin.com", username="admin", hashed_password=security.get_hashed_password("admin"), admin=True))
     db.add(models.User(
-        email="user@user.com", username="John_Doe", hashed_password=security.get_hashed_password("test321"), admin=True))
+        email="user@user.com", username="John_Doe", hashed_password=security.get_hashed_password("test321"), admin=False))
 
     db.add(models.Room(name="Room 431"))
     db.add(models.Room(name="Inspiration Station"))
