@@ -87,7 +87,7 @@ const DeskBooking = () => {
   }, [currentRoom]);
 
   useEffect(() => {
-    if (typeof currentDate !== "undefined") {
+    if (typeof currentDate !== "undefined" && currentRoom) {
       getBookings();
     }
   }, [currentDate]);
@@ -123,41 +123,46 @@ const DeskBooking = () => {
   };
 
   const getBookings = () => {
-    APIService.getBookings(currentDate.format("YYYY-MM-DD"), currentRoom).then(
-      (response) => {
-        const bookingsResponse = response.data;
-        setBookings(bookingsResponse);
-        desks.forEach((desk) => {
-          updateDesks(desk.id, "booked", false);
-          updateDesks(desk.id, "booked_user", undefined);
-        });
-        if (bookingsResponse.length > 0) {
-          // Add bookings to each desk that has one
+    if (desks) {
+      APIService.getBookings(
+        currentDate.format("YYYY-MM-DD"),
+        currentRoom
+      ).then(
+        (response) => {
+          const bookingsResponse = response.data;
+          setBookings(bookingsResponse);
           desks.forEach((desk) => {
-            bookingsResponse.forEach((booking) => {
-              if (desk.id == booking.desk_id) {
-                updateDesks(desk.id, "booked", true);
-                APIService.getUser(booking.user_id).then(
-                  (user_response) => {
-                    updateDesks(
-                      desk.id,
-                      "booked_user",
-                      user_response.data.username
-                    );
-                  },
-                  (error) => {
-                    console.log(error);
-                  }
-                );
-              }
-            });
+            updateDesks(desk.id, "booked", false);
+            updateDesks(desk.id, "booked_user", undefined);
           });
+          if (bookingsResponse.length > 0) {
+            // Add bookings to each desk that has one
+            desks.forEach((desk) => {
+              bookingsResponse.forEach((booking) => {
+                if (desk.id == booking.desk_id) {
+                  updateDesks(desk.id, "booked", true);
+                  APIService.getUser(booking.user_id).then(
+                    (user_response) => {
+                      updateDesks(
+                        desk.id,
+                        "booked_user",
+                        user_response.data.username
+                      );
+                    },
+                    (error) => {
+                      console.log(error);
+                    }
+                  );
+                }
+              });
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    }
   };
 
   const bookDesk = () => {
@@ -190,13 +195,14 @@ const DeskBooking = () => {
 
   return (
     <>
-      <TopBar commonAppBar />
+      <TopBar />
       <Box sx={{ mx: 5 }}>
         {rooms ? (
           <Box sx={{ m: 1, pt: 1, flexGrow: 1 }}>
             <Stack direction="row" spacing={5}>
               {Array.from(rooms).map((room) => (
                 <Button
+                  key={room.id}
                   room-id={room.id}
                   variant={room.id == currentRoom ? "contained" : "outlined"}
                   size="large"
@@ -240,7 +246,7 @@ const DeskBooking = () => {
                 gridTemplateColumns: "repeat(8, 11.6vw)",
                 gridTemplateRows: "repeat(4, 11.6vw)",
                 gridTemplateAreas: "none",
-                gap: "3px"
+                gap: "3px",
               }}
             >
               {[...Array(32)].map((_, index) => {
@@ -248,13 +254,14 @@ const DeskBooking = () => {
                 let desk;
                 // Adds a seperation between every block of desks
                 if (seperate.includes(index) && desks.length > currentDesk) {
-                  return <Box></Box>;
+                  return <Box key={index}></Box>;
                 } else if (desks.length > currentDesk + 1) {
                   // Go to next desk
                   currentDesk++;
                   desk = desks[currentDesk];
                   return (
                     <Paper
+                      key={index}
                       sx={{
                         transition: "all 0.13s ease-out",
                         "&:hover": desk.booked
@@ -266,7 +273,9 @@ const DeskBooking = () => {
                             },
                         border: 2,
                         borderBottomStyle: "solid",
-                        backgroundColor: desk.booked ? "rgba(128,128,128, 0.75)" : "white",
+                        backgroundColor: desk.booked
+                          ? "rgba(128,128,128, 0.75)"
+                          : "white",
                         textAlign: "center",
                         display: "flex",
                         flexDirection: "column",
@@ -277,7 +286,13 @@ const DeskBooking = () => {
                       }}
                       onClick={() => handleModalOpen(desk)}
                     >
-                      <Typography style={{ minWidth: "100%", fontWeight: 700, fontSize: "1.5em" }}>
+                      <Typography
+                        style={{
+                          minWidth: "100%",
+                          fontWeight: 700,
+                          fontSize: "1.5em",
+                        }}
+                      >
                         Desk {desk.number}
                       </Typography>
                       {desk.booked && (

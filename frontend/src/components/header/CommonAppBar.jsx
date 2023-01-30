@@ -207,7 +207,7 @@ export default function CommonAppBar(props) {
   return (
     <>
         <AppBar
-        position={props.commonAppBar && "staic"}
+        position={props.title==="React Admin" ? "fixed":"static"}
           sx={{
             "& .RaAppBar-title": {
               flex: 1,
