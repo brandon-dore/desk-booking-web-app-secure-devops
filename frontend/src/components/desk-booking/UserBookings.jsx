@@ -94,7 +94,7 @@ const UserBookings = () => {
 
   return (
     <>
-      <TopBar commonAppBar />
+      <TopBar />
       <Box sx={{ m: 1, pt: 1, flexGrow: 1 }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

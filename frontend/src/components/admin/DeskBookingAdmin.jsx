@@ -65,7 +65,7 @@ export const DeskBookingAdmin = () => {
     <>
       {!isAdmin && (
         <>
-          <TopBar />
+          <TopBar fixed="true"/>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box

@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <>
-      <TopBar commonAppBar/>
+      <TopBar />
       <Container
         sx={{
           width: "100%",
