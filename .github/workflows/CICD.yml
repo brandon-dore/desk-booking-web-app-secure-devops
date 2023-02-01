@@ -48,7 +48,7 @@ jobs:
 
   build-and-push-image:
     name: Build and Push Images
-    needs: Lint
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
