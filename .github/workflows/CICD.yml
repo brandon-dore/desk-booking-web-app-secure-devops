@@ -23,3 +23,21 @@ jobs:
 
     - name: Run frontend tests
       run: docker-compose run frontend npm test
+
+  Lint:
+    name: Lint both frontend and backend
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --write **/*.{js,jsx,ts,tsx,md}
+          
+      - name: Check files using the black formatter
+        uses: psf/black@stable
+        with:
+          src: "./backend"
