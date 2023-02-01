@@ -206,21 +206,21 @@ export default function CommonAppBar(props) {
 
   return (
     <>
-        <AppBar
-        position={props.title==="React Admin" ? "fixed":"static"}
-          sx={{
-            "& .RaAppBar-title": {
-              flex: 1,
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            },
-            height: "65px",
-          }}
-          {...props}
-        >
-          {container}
-        </AppBar>
+      <AppBar
+        position={props.title === "React Admin" ? "fixed" : "static"}
+        sx={{
+          "& .RaAppBar-title": {
+            flex: 1,
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          },
+          height: "65px",
+        }}
+        {...props}
+      >
+        {container}
+      </AppBar>
     </>
   );
 }

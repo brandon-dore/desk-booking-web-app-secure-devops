@@ -35,13 +35,12 @@ export const UserEdit = () => (
 );
 
 export const UserCreate = () => (
-    <Create>
-      <SimpleForm>
-        <TextInput source="username" />
-        <TextInput source="email" />
-        <BooleanInput source="admin" />
-        <PasswordInput source="password" />
-      </SimpleForm>
-    </Create>
-  );
-  
+  <Create>
+    <SimpleForm>
+      <TextInput source="username" />
+      <TextInput source="email" />
+      <BooleanInput source="admin" />
+      <PasswordInput source="password" />
+    </SimpleForm>
+  </Create>
+);

@@ -10,15 +10,15 @@ import {
   TableBody,
   Table,
   TableContainer,
-  TableHead
+  TableHead,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useSnackbar } from "notistack";
 import { LocalizationProvider, DesktopDatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
 function createData(date, number, roomName, approved) {
   return { date, number, roomName, approved };
 }
@@ -49,7 +49,6 @@ const UserBookings = () => {
 
   const [rows, setRows] = useState([]);
 
-
   useEffect(() => {
     let rooms;
     APIService.getUserInfo().then(
@@ -64,17 +63,17 @@ const UserBookings = () => {
     );
     APIService.getRooms().then(
       (response) => {
-        rooms = response.data
+        rooms = response.data;
       },
       (error) => {
         enqueueSnackbar("Unable to retrive rooms", {
           variant: "error",
         });
       }
-    )
+    );
     APIService.getUserBookings().then(
       (response) => {
-        updateTable(response.data, rooms)
+        updateTable(response.data, rooms);
       },
       (error) => {
         enqueueSnackbar("Unable to retrive bookings", {
@@ -85,11 +84,19 @@ const UserBookings = () => {
   }, []);
 
   const updateTable = (bookings, rooms) => {
-    setRows([])
+    setRows([]);
     bookings.forEach((booking, index) => {
-      const room_name = rooms.find(x => x.id === booking.desk.room_id).name;
-      setRows(current => [...current, createData(booking.date, booking.desk.number, room_name, booking.approved)])
-    }) 
+      const room_name = rooms.find((x) => x.id === booking.desk.room_id).name;
+      setRows((current) => [
+        ...current,
+        createData(
+          booking.date,
+          booking.desk.number,
+          room_name,
+          booking.approved
+        ),
+      ]);
+    });
   };
 
   return (
@@ -117,7 +124,9 @@ const UserBookings = () => {
                   </TableCell>
                   <TableCell align="right">{row.number}</TableCell>
                   <TableCell align="right">{row.roomName}</TableCell>
-                  <TableCell align="right">{row.approved ? <DoneIcon/>:<CloseIcon/>}</TableCell>
+                  <TableCell align="right">
+                    {row.approved ? <DoneIcon /> : <CloseIcon />}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

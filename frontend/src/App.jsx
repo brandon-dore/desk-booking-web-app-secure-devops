@@ -13,7 +13,7 @@ import { Login } from "./components/auth/Login";
 import { SignUp } from "./components/auth/SignUp";
 import { useEffect, useLayoutEffect } from "react";
 import AuthService from "./components/services/auth.service";
-import { NotFound } from './NotFound';
+import { NotFound } from "./NotFound";
 
 const App = () => {
   let location = useLocation();
@@ -64,7 +64,7 @@ const App = () => {
           </RequireAuth>
         }
       />
-      <Route path="*" element={<NotFound />} /> 
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
@@ -73,7 +73,7 @@ function RequireAuth({ children, redirectTo }) {
   return localStorage.getItem("user") !== null ? (
     children
   ) : (
-    <Navigate to={redirectTo} replace={true}/>
+    <Navigate to={redirectTo} replace={true} />
   );
 }
 
