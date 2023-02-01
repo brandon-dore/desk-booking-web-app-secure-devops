@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview", 
+    "test": "vitest run",
+    "testWatch": "vitest watch",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -31,6 +34,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-router-dom": "^6.3.0",
+    "vitest": "^0.28.3",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
