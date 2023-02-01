@@ -33,6 +33,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Dependency for retriving database session
 def get_db():
     db = SessionLocal()
@@ -68,7 +69,6 @@ def flatten_query_string_lists(request: Request, call_next):
                 flattened.append((key, int(entry)))
             else:
                 flattened.append((key, entry))
-
     request.scope["query_string"] = urlencode(flattened, doseq=True).encode("utf-8")
 
     return call_next(request)
