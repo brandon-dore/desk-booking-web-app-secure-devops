@@ -255,7 +255,11 @@ class TestPatchEndpoints:
         )
         assert response.status_code == 404, response.text
 
-    def test_patch_room_with_error(self, client, request_data,):
+    def test_patch_room_with_error(
+        self,
+        client,
+        request_data,
+    ):
         response = client.patch(
             f"/rooms/{100}",
             json=request_data["room_request_edited"],
@@ -276,7 +280,7 @@ class TestPatchEndpoints:
         )
         assert response.status_code == 404, response.text
 
-    
+
 class TestUserAuth:
     def test_register_and_login(self, client, headers, request_data):
         response = client.post(
@@ -289,7 +293,7 @@ class TestUserAuth:
         response = client.post(
             "/login", data=request_data["user_request_3"], headers=headers
         )
-        
+
         assert response.status_code == 200, response.text
 
     def test_register_fail_login(self, client, headers, request_data):
