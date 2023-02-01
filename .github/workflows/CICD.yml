@@ -28,7 +28,7 @@ jobs:
 
   Lint:
     name: Lint both frontend and backend
-    needs: Test
+    # needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
