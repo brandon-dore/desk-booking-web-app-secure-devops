@@ -15,7 +15,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
-
 export const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(undefined);
@@ -46,16 +45,15 @@ export const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
-
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     setLoading(true);
-    delete data.confirmPassword
+    delete data.confirmPassword;
     AuthService.signUp(data).then(
       () => {
         navigate("/");
       },
       () => {
-        setResponse("Registration failed. Please try again.")
+        setResponse("Registration failed. Please try again.");
         setLoading(false);
       }
     );
@@ -78,76 +76,74 @@ export const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            sx={{ mt: 1 }}
-          >
-            <form onSubmit={handleSubmit(onSubmit)} >
-            <TextField
-              required
-              id="username"
-              name="username"
-              label="Username"
-              fullWidth
-              margin="dense"
-              {...register("username")}
-              error={errors.username ? true : false}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.username?.message}
-            </Typography>
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              margin="dense"
-              {...register("email")}
-              error={errors.email ? true : false}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.email?.message}
-            </Typography>
-            <TextField
-              required
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              margin="dense"
-              {...register("password")}
-              error={errors.password ? true : false}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.password?.message}
-            </Typography>
-            <TextField
-              required
-              id="confirmPassword"
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              fullWidth
-              margin="dense"
-              {...register("confirmPassword")}
-              error={errors.confirmPassword ? true : false}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.confirmPassword?.message}
-            </Typography>
-            <Typography variant="inherit" color="textSecondary">
-              {response}
-            </Typography>
-            <LoadingButton
-              type="submit"
-              fullWidth
-              variant="contained"
-              loading={loading}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </LoadingButton>
+          <Box sx={{ mt: 1 }}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                required
+                id="username"
+                name="username"
+                label="Username"
+                fullWidth
+                margin="dense"
+                {...register("username")}
+                error={errors.username ? true : false}
+              />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.username?.message}
+              </Typography>
+              <TextField
+                required
+                id="email"
+                name="email"
+                label="Email"
+                fullWidth
+                margin="dense"
+                {...register("email")}
+                error={errors.email ? true : false}
+              />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.email?.message}
+              </Typography>
+              <TextField
+                required
+                id="password"
+                name="password"
+                label="Password"
+                type="password"
+                fullWidth
+                margin="dense"
+                {...register("password")}
+                error={errors.password ? true : false}
+              />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.password?.message}
+              </Typography>
+              <TextField
+                required
+                id="confirmPassword"
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                fullWidth
+                margin="dense"
+                {...register("confirmPassword")}
+                error={errors.confirmPassword ? true : false}
+              />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.confirmPassword?.message}
+              </Typography>
+              <Typography variant="inherit" color="textSecondary">
+                {response}
+              </Typography>
+              <LoadingButton
+                type="submit"
+                fullWidth
+                variant="contained"
+                loading={loading}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </LoadingButton>
             </form>
             <Grid container>
               <Grid item>

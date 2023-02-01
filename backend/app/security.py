@@ -7,14 +7,13 @@ SECRET_KEY = "sW04AA2nYC8jXYHtXP4PBJ3YIzi+oyfbel137TkkpeGAGjUxhk6cFM32PdWKYZPL"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
-JWT_REFRESH_SECRET_KEY = "MIIEpAIBAAKCAQEAzJPPU2jJBnK4MjynlfQbWQXa2p4OVPohx+7O84uSfXWLVUhH"
+JWT_REFRESH_SECRET_KEY = (
+    "MIIEpAIBAAKCAQEAzJPPU2jJBnK4MjynlfQbWQXa2p4OVPohx+7O84uSfXWLVUhH"
+)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/login",
-    scheme_name="JWT"
-)
+reuseable_oauth = OAuth2PasswordBearer(tokenUrl="/login", scheme_name="JWT")
 
 # Password hashing functions so if the database is comprimised, passwords cannot be easily retrived
 

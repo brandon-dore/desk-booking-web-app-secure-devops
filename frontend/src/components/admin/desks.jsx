@@ -10,7 +10,7 @@ import {
   ReferenceInput,
   SelectInput,
   SimpleForm,
-  Create
+  Create,
 } from "react-admin";
 
 export const DeskList = () => (

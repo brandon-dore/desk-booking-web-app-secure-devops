@@ -1,5 +1,7 @@
 FROM node:latest
 
+LABEL name="frontend"
+
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH

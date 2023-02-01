@@ -15,7 +15,6 @@ import {
   Create,
 } from "react-admin";
 
-
 export const BookingList = () => (
   <List>
     <Datagrid rowClick="edit">

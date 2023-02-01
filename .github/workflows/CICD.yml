@@ -1,0 +1,62 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [master]
+
+env:
+  VERSION: 0.1.0
+
+jobs:
+  Lint:
+    name: Lint both frontend and backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --write **/*.{js,jsx,ts,tsx,md}
+          only_changed: True
+
+      - name: Check files using the black formatter
+        uses: psf/black@stable
+        with:
+          src: "./backend"
+  
+  Test:
+    name: Run test suite
+    needs: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build container for tests
+      run: docker compose build
+
+    - name: Run backend tests
+      run: docker-compose run backend pytest
+
+    - name: Run frontend tests
+      run: docker-compose run frontend npm test
+
+  build-and-push-image:
+    name: Build and Push Images
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: publish
+        uses: pennsignals/publish_docker-compose@v0.2.5
+        with:
+          version: ${{ env.VERSION }}
+          docker_compose: 'docker-compose.yml'
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"

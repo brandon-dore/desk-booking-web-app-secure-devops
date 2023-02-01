@@ -9,14 +9,14 @@ from app.main import app, get_db
 from sqlalchemy_utils import create_database, drop_database, database_exists
 
 SQLALCHEMY_DATABASE_URL = os.environ.get(
-    'SQLALCHEMY_DATABASE_URL', 'postgresql://postgres:password@localhost:5432/desk_booking_db_testing')
+    "SQLALCHEMY_DATABASE_URL",
+    "postgresql://postgres:password@localhost:5432/desk_booking_db_testing",
+)
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL,
-                       pool_pre_ping=True
-                       )
+engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_pre_ping=True)
 
 
-def get_test_db(): # pragma: no cover
+def get_test_db():  # pragma: no cover
     """
     Mock override for get_db() dependancy
     """
@@ -30,7 +30,7 @@ def get_test_db(): # pragma: no cover
 
 
 @pytest.fixture(scope="session", autouse=True)
-def create_test_database(): # pragma: no cover
+def create_test_database():  # pragma: no cover
     """
     Create a new database for each test file
     """
@@ -45,7 +45,7 @@ def create_test_database(): # pragma: no cover
 
 
 @pytest.fixture(scope="class", autouse=True)
-def test_db(): # pragma: no cover
+def test_db():  # pragma: no cover
     """
     Recreate tables (remove data) after every test class
     """
@@ -55,7 +55,7 @@ def test_db(): # pragma: no cover
 
 
 @pytest.fixture(scope="module")
-def client(): # pragma: no cover
+def client():  # pragma: no cover
     """
     Creates a mock client for fast api
     """
@@ -64,7 +64,7 @@ def client(): # pragma: no cover
 
 
 @pytest.fixture()
-def request_data(): # pragma: no cover
+def request_data():  # pragma: no cover
     """
     Provide reusable data to send request
     """
@@ -140,7 +140,7 @@ def request_data(): # pragma: no cover
 
 
 @pytest.fixture()
-def response_data(): # pragma: no cover
+def response_data():  # pragma: no cover
     """
     Provide reusable data to assert against responses
     """
@@ -160,22 +160,59 @@ def response_data(): # pragma: no cover
             "user_id": 1,
             "id": 1,
         },
-        "room_response_multiple": [{'number': 4, 'room_id': 1, 'id': 1}, {'number': 10, 'room_id': 1, 'id': 2}, {'number': 12, 'room_id': 1, 'id': 3}, {'number': 14, 'room_id': 1, 'id': 4}],
-        "booking_response_multiple": [{'approved_status': False, 'date': '2020-05-17', 'desk_id': 1, 'user_id': 1, 'id': 1}, {'approved_status': True, 'date': '2020-05-17', 'desk_id': 3, 'user_id': 2, 'id': 2}],
+        "room_response_multiple": [
+            {"number": 4, "room_id": 1, "id": 1},
+            {"number": 10, "room_id": 1, "id": 2},
+            {"number": 12, "room_id": 1, "id": 3},
+            {"number": 14, "room_id": 1, "id": 4},
+        ],
+        "booking_response_multiple": [
+            {
+                "approved_status": False,
+                "date": "2020-05-17",
+                "desk_id": 1,
+                "user_id": 1,
+                "id": 1,
+            },
+            {
+                "approved_status": True,
+                "date": "2020-05-17",
+                "desk_id": 3,
+                "user_id": 2,
+                "id": 2,
+            },
+        ],
         "user_patched_response": {
             "username": "user1234",
             "email": "newemail@gmail.com",
-            'admin': False,
-            "id": 1
+            "admin": False,
+            "id": 1,
         },
-        "room_patched_response": {'name': 'Test Room Edited', 'id': 1},
-        "desk_patched_response": {'number': 29, 'room_id': 1, 'id': 1},
-        "booking_patched_response": {'approved_status': True, 'date': '2020-05-17', 'desk_id': 1, 'user_id': 1, 'id': 1},
-        "logged_in_user_response": {'username': 'user5482', 'email': 'test@test.com', 'admin': False, 'id': 3},
-        "logged_in_user_bookings": {'approved_status': False, 'date': '2022-05-17', 'desk_id': 1, 'user_id': 1, 'id': 1}
+        "room_patched_response": {"name": "Test Room Edited", "id": 1},
+        "desk_patched_response": {"number": 29, "room_id": 1, "id": 1},
+        "booking_patched_response": {
+            "approved_status": True,
+            "date": "2020-05-17",
+            "desk_id": 1,
+            "user_id": 1,
+            "id": 1,
+        },
+        "logged_in_user_response": {
+            "username": "user5482",
+            "email": "test@test.com",
+            "admin": False,
+            "id": 3,
+        },
+        "logged_in_user_bookings": {
+            "approved_status": False,
+            "date": "2022-05-17",
+            "desk_id": 1,
+            "user_id": 1,
+            "id": 1,
+        },
     }
 
 
 @pytest.fixture()
-def headers(): # pragma: no cover
+def headers():  # pragma: no cover
     return {"Content-Type": "application/x-www-form-urlencoded"}

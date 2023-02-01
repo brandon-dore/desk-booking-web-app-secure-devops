@@ -6,7 +6,7 @@ import {
   Edit,
   SimpleForm,
   TextInput,
-  Create
+  Create,
 } from "react-admin";
 
 export const RoomList = () => (
@@ -27,10 +27,9 @@ export const RoomEdit = () => (
 );
 
 export const RoomCreate = () => (
-    <Create>
-      <SimpleForm>
-        <TextInput source="name" />
-      </SimpleForm>
-    </Create>
-  );
-  
+  <Create>
+    <SimpleForm>
+      <TextInput source="name" />
+    </SimpleForm>
+  </Create>
+);
