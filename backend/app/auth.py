@@ -17,10 +17,13 @@ def get_db():
     finally:
         db.close()
 
+
 # JSON Web Token (JWT) Functions
 
 
-def generic_token_creation(data: dict, expires_delta: datetime.timedelta, token_type: str):
+def generic_token_creation(
+    data: dict, expires_delta: datetime.timedelta, token_type: str
+):
     """
     Creates a JWT
     """
@@ -29,10 +32,12 @@ def generic_token_creation(data: dict, expires_delta: datetime.timedelta, token_
     to_encode.update({"exp": expire})
     if token_type == "access":
         encoded_jwt = jwt.encode(
-            to_encode, security.SECRET_KEY, algorithm=security.ALGORITHM)
+            to_encode, security.SECRET_KEY, algorithm=security.ALGORITHM
+        )
     else:
         encoded_jwt = jwt.encode(
-            to_encode, security.JWT_REFRESH_SECRET_KEY, algorithm=security.ALGORITHM)
+            to_encode, security.JWT_REFRESH_SECRET_KEY, algorithm=security.ALGORITHM
+        )
     return encoded_jwt
 
 
@@ -46,11 +51,15 @@ def authenticate_user(db: Session, username: str, password: str):
     if not security.verify_password(password, user.hashed_password):
         return False
     return user
+
+
 # Current user functions
 # Won't work in tests due to quirks in the security of JWTS
 
 
-def get_current_user(db: Session = Depends(get_db), token: str = Depends(security.reuseable_oauth)):  # pragma: no cover
+def get_current_user(
+    db: Session = Depends(get_db), token: str = Depends(security.reuseable_oauth)
+):  # pragma: no cover
     """
     Gets the current logged in user entity based on the JWT (token) passed in
     """
@@ -60,8 +69,9 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(securit
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, security.SECRET_KEY,
-                             algorithms=[security.ALGORITHM])
+        payload = jwt.decode(
+            token, security.SECRET_KEY, algorithms=[security.ALGORITHM]
+        )
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
@@ -74,5 +84,7 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(securit
     return user
 
 
-def get_current_active_user(current_user: schemas.User = Depends(get_current_user)):  # pragma: no cover
+def get_current_active_user(
+    current_user: schemas.User = Depends(get_current_user),
+):  # pragma: no cover
     return current_user
