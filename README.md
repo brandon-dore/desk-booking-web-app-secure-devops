@@ -106,7 +106,7 @@ Run these in order for local setup, this is assuming you have VSCode installed a
 - Install dependencies
 - `cd ./frontend/`
 - `npm install`
-- Start the development server using `npm start`
+- Start the development server using `npm run dev`
 
 ## Accessing the UI and API
 
