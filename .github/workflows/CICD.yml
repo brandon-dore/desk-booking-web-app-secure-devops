@@ -43,7 +43,7 @@ jobs:
           src: "./backend"
 
   build-and-push-image:
-    name: Build and Push Imge
+    name: Build and Push Images
     needs: Lint
     runs-on: ubuntu-latest
     steps:
