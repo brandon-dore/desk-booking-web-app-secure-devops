@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Container } from '@mui/material';
+import { Typography, Container } from "@mui/material";
 
 export const NotFound = () => {
   return (
@@ -11,10 +11,13 @@ export const NotFound = () => {
           marginTop: "15%",
         }}
       >
-        <Typography variant='h1' sx={{ fontSize: "80px", fontWeight: 800, textAlign: "center" }}>
+        <Typography
+          variant="h1"
+          sx={{ fontSize: "80px", fontWeight: 800, textAlign: "center" }}
+        >
           404
         </Typography>
-        <Typography variant='h2' sx={{ fontSize: "25px", textAlign: "center" }}>
+        <Typography variant="h2" sx={{ fontSize: "25px", textAlign: "center" }}>
           Page Not Found
         </Typography>
         <Typography

@@ -48,20 +48,20 @@ const Home = () => {
           </>
         ) : (
           <>
-          <Typography
+            <Typography
               variant="h1"
               sx={{ fontSize: "80px", fontWeight: 800, textAlign: "center" }}
             >
               Welcome
             </Typography>
-          <Typography
-            sx={{
-              textAlign: "center",
-              fontSize: "17px",
-            }}
-          >
-            <Link to="/login">Login</Link> to view content
-          </Typography>
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize: "17px",
+              }}
+            >
+              <Link to="/login">Login</Link> to view content
+            </Typography>
           </>
         )}
       </Container>

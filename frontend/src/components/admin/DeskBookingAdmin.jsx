@@ -2,19 +2,14 @@
 import React, { useEffect, useState } from "react";
 
 import { transform, isEqual, isObject } from "lodash";
-import {
-  Container,
-  Box,
-  CssBaseline,
-  Typography,
-} from "@mui/material";
+import { Container, Box, CssBaseline, Typography } from "@mui/material";
 import UserIcon from "@mui/icons-material/Group";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import DesktopWindowsIcon from "@mui/icons-material/DesktopWindows";
 import simpleRestDataProvider from "ra-data-simple-rest";
 
-import { Admin, Resource, fetchUtils, Layout  } from "react-admin";
+import { Admin, Resource, fetchUtils, Layout } from "react-admin";
 import { UserList, UserEdit, UserCreate } from "./users";
 import { RoomList, RoomEdit, RoomCreate } from "./rooms";
 import { BookingList, BookingEdit, BookingCreate } from "./bookings";
@@ -65,7 +60,7 @@ export const DeskBookingAdmin = () => {
     <>
       {!isAdmin && (
         <>
-          <TopBar fixed="true"/>
+          <TopBar fixed="true" />
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
