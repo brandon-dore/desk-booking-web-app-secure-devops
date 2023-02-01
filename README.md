@@ -77,7 +77,7 @@ These screenshots exclude much of the application such as; alerts for errors and
 ####
 
 ## Run using docker
-
+_These docker images are also availiable from the packages section of docker and are updated with every push to master. Please run them in order (database > backend > frontend)._
 - [Install docker](https://docs.docker.com/get-docker/) on your device
 - run `docker-compose build --no-cache` in the root directory
 - run `docker-compose up` in the root directory
