@@ -11,6 +11,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 python-jose = "*"
 sqlalchemy-utils = "*"
 psycopg2 = "*"
+python-multipart = "*"
 
 [dev-packages]
 pytest = "*"

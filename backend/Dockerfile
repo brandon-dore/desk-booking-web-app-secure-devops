@@ -4,11 +4,15 @@ LABEL name="backend"
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY . /code
+
+RUN pip install pipenv
+
+RUN pipenv requirements > requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./app /code/app
+RUN cd app
 
 EXPOSE 8000 
 
