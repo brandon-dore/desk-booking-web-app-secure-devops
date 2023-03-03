@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD Pipeline
 
 on:
   pull_request:
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Prettify code
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           prettier_options: --write **/*.{js,jsx,ts,tsx,md}
           only_changed: True
@@ -28,23 +28,23 @@ jobs:
         uses: psf/black@stable
         with:
           src: "./backend"
-  
+
   Test:
     name: Run test suite
     needs: Lint
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Build container for tests
-      run: docker compose build
+      - name: Build container for tests
+        run: docker compose build
 
-    - name: Run backend tests
-      run: docker-compose run backend pytest
+      - name: Run backend tests
+        run: docker-compose run backend pytest
 
-    - name: Run frontend tests
-      run: docker-compose run frontend npm test
+      - name: Run frontend tests
+        run: docker-compose run frontend npm test
 
   build-and-push-image:
     name: Build and Push Images
@@ -58,5 +58,5 @@ jobs:
         uses: pennsignals/publish_docker-compose@v0.2.5
         with:
           version: ${{ env.VERSION }}
-          docker_compose: 'docker-compose.yml'
+          docker_compose: "docker-compose.yml"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
