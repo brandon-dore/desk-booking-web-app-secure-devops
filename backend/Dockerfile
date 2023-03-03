@@ -8,7 +8,7 @@ COPY . /code
 
 RUN pip install pipenv
 
-RUN pipenv requirements > requirements.txt
+RUN pipenv requirements > requirements.txt --dev
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
