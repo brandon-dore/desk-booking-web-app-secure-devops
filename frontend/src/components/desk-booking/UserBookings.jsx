@@ -50,30 +50,10 @@ const UserBookings = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    let rooms;
-    APIService.getUserInfo().then(
-      (response) => {
-        setUser(response.data);
-      },
-      (error) => {
-        enqueueSnackbar("Unable to retrive user info", {
-          variant: "error",
-        });
-      }
-    );
-    APIService.getRooms().then(
-      (response) => {
-        rooms = response.data;
-      },
-      (error) => {
-        enqueueSnackbar("Unable to retrive rooms", {
-          variant: "error",
-        });
-      }
-    );
     APIService.getUserBookings().then(
       (response) => {
-        updateTable(response.data, rooms);
+        console.log(response)
+        updateTable(response.data);
       },
       (error) => {
         enqueueSnackbar("Unable to retrive bookings", {
@@ -83,16 +63,15 @@ const UserBookings = () => {
     );
   }, []);
 
-  const updateTable = (bookings, rooms) => {
+  const updateTable = (bookings) => {
     setRows([]);
-    bookings.forEach((booking, index) => {
-      const room_name = rooms.find((x) => x.id === booking.desk.room_id).name;
+    bookings.forEach((booking) => {
       setRows((current) => [
         ...current,
         createData(
           booking.date,
           booking.desk.number,
-          room_name,
+          booking.desk.room.name,
           booking.approved
         ),
       ]);
