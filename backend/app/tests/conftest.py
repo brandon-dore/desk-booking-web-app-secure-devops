@@ -67,6 +67,7 @@ def client_authenticated():  # pragma: no cover
     """
     Creates a mock client for fast api with bypass on auth
     """
+
     def skip_auth():
         return models.User(
             email="gfg@fgfg.com",
