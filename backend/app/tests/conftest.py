@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from app.models import Base
-from app.main import app, get_db
+from app.main import app, get_db, auth, models
 from sqlalchemy_utils import create_database, drop_database, database_exists
 
 SQLALCHEMY_DATABASE_URL = os.environ.get(
@@ -55,12 +55,31 @@ def test_db():  # pragma: no cover
 
 
 @pytest.fixture(scope="module")
-def client():  # pragma: no cover
+def client():
     """
-    Creates a mock client for fast api
+    Return an API Client
     """
-    with TestClient(app) as c:
-        yield c
+    app.dependency_overrides = {}
+    return TestClient(app)
+
+
+@pytest.fixture(scope="module")
+def client_authenticated():
+    """
+    Returns an API client which skips the authentication
+    """
+
+    def skip_auth():
+        return models.User(
+            email="gfg@fgfg.com",
+            username="gfgf",
+            hashed_password="$2b$12$qw.EaCr1RU/UpaoqTfm0feQdW0uHFq57ySih2xg/KbGikw14MIhC2",
+            id=5,
+            admin=True,
+        )
+
+    app.dependency_overrides[auth.get_current_active_user] = skip_auth
+    return TestClient(app)
 
 
 @pytest.fixture()

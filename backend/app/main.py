@@ -218,6 +218,7 @@ def read_own_details(
     request: Request,
     current_user: schemas.User = Depends(auth.get_current_active_user),
 ):
+    print(current_user.__dict__)
     return current_user
 
 
