@@ -1,5 +1,7 @@
 class TestPostAndGetEndpoints:
-    def test_create_and_get_user(self, client_authenticated, request_data, response_data):
+    def test_create_and_get_user(
+        self, client_authenticated, request_data, response_data
+    ):
         response = client_authenticated.post(
             "/register",
             json=request_data["user_request"],
@@ -13,7 +15,9 @@ class TestPostAndGetEndpoints:
         data = response.json()
         assert data == response_data["user_response"]
 
-    def test_create_and_get_room(self, client_authenticated, request_data, response_data):
+    def test_create_and_get_room(
+        self, client_authenticated, request_data, response_data
+    ):
         response = client_authenticated.post(
             "/rooms",
             json=request_data["room_request"],
@@ -27,7 +31,9 @@ class TestPostAndGetEndpoints:
         data = response.json()
         assert data == response_data["room_response"]
 
-    def test_create_and_get_desk(self, client_authenticated, request_data, response_data):
+    def test_create_and_get_desk(
+        self, client_authenticated, request_data, response_data
+    ):
         response = client_authenticated.post(
             "/desks",
             json=request_data["desk_request"],
@@ -41,7 +47,9 @@ class TestPostAndGetEndpoints:
         data = response.json()
         assert data == response_data["desk_response"]
 
-    def test_create_and_get_booking(self, client_authenticated, request_data, response_data):
+    def test_create_and_get_booking(
+        self, client_authenticated, request_data, response_data
+    ):
         response = client_authenticated.post(
             "/bookings",
             json=request_data["booking_request"],
@@ -55,7 +63,9 @@ class TestPostAndGetEndpoints:
         data = response.json()
         assert data == response_data["booking_response"]
 
-    def test_get_all_desks_in_room(self, client_authenticated, request_data, response_data):
+    def test_get_all_desks_in_room(
+        self, client_authenticated, request_data, response_data
+    ):
         for desk in request_data["desk_request_multiple"]:
             response = client_authenticated.post(
                 "/desks",
@@ -68,7 +78,9 @@ class TestPostAndGetEndpoints:
 
         assert data == response_data["room_response_multiple"]
 
-    def test_get_all_booking_in_room(self, client_authenticated, request_data, response_data):
+    def test_get_all_booking_in_room(
+        self, client_authenticated, request_data, response_data
+    ):
         response = client_authenticated.post(
             "/register",
             json=request_data["user_request_2"],
@@ -155,7 +167,9 @@ class TestDeleteEndpointsAndGetErrors:
 
 
 class TestPatchEndpoints:
-    def test_create_entities_for_patching(self, client_authenticated, response_data, request_data):
+    def test_create_entities_for_patching(
+        self, client_authenticated, response_data, request_data
+    ):
         response = client_authenticated.post(
             "/register",
             json=request_data["user_request"],
