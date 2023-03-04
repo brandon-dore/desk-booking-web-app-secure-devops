@@ -55,20 +55,18 @@ def test_db():  # pragma: no cover
 
 
 @pytest.fixture(scope="module")
-def client():
+def client():  # pragma: no cover
     """
-    Return an API Client
+    Creates a mock client for fast api
     """
-    app.dependency_overrides = {}
     return TestClient(app)
 
 
 @pytest.fixture(scope="module")
-def client_authenticated():
+def client_authenticated():  # pragma: no cover
     """
-    Returns an API client which skips the authentication
+    Creates a mock client for fast api with bypass on auth
     """
-
     def skip_auth():
         return models.User(
             email="gfg@fgfg.com",
