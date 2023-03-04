@@ -16,6 +16,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 # Defines each database table
+# Using Object Relational Mapping aiding in the prevention of SQL Injection
 
 
 class User(Base):

@@ -117,6 +117,7 @@ def docs():
 
 
 # User Endpoints
+# With the use of pydantic and fastAPI each endpoint has an allowlist (the params of the functions), to validate inputs (prevent injection)
 
 
 @app.post("/login", response_model=schemas.Token)
