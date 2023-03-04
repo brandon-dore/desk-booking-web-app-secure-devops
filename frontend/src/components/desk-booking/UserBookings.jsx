@@ -52,7 +52,7 @@ const UserBookings = () => {
   useEffect(() => {
     APIService.getUserBookings().then(
       (response) => {
-        console.log(response)
+        console.log(response);
         updateTable(response.data);
       },
       (error) => {
