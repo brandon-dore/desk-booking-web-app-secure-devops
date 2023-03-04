@@ -48,9 +48,9 @@ class Desk(Base):
 
     # Stops duplicates by only allowing unique combinations of room and desk
     __table_args__ = (UniqueConstraint("number", "room_id", name="_desk_room_uc"),)
-    
+
     room = relationship("Room", back_populates="desks")
-    
+
 
 class Booking(Base):
     __tablename__ = "bookings"

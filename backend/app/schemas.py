@@ -78,12 +78,14 @@ class DeskUpdate(BaseModel):
     class Config:
         orm_mode = True
 
+
 class DeskSummary(DeskBase):
     id: int
     room: Room
 
     class Config:
         orm_mode = True
+
 
 class BookingBase(BaseModel):
     approved_status: bool

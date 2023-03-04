@@ -41,13 +41,27 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_methods=["*"],
-    allow_headers=["Authorization", "Content-Range", "Access-Control-Expose-Headers", "Host", "Accept", "Accept-Language", "Accept-Encoding", "Connection", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"],
+    allow_headers=[
+        "Authorization",
+        "Content-Range",
+        "Access-Control-Expose-Headers",
+        "Host",
+        "Accept",
+        "Accept-Language",
+        "Accept-Encoding",
+        "Connection",
+        "Origin",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers",
+    ],
 )
 
 
 def is_admin(user: schemas.User = Depends(auth.get_current_active_user)):
     if user.admin == False:
-        print(f"{user.username} tried to hit a restricted admin endpoint as a non-admin")
+        print(
+            f"{user.username} tried to hit a restricted admin endpoint as a non-admin"
+        )
         raise HTTPException(status_code=403, detail="Operation not permitted")
 
 
