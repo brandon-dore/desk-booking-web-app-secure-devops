@@ -33,6 +33,11 @@ app.add_middleware(
 )
 
 
+def is_admin(user: schemas.User = Depends(auth.get_current_active_user)):
+    if user.admin == False:
+        raise HTTPException(status_code=403, detail="Operation not permitted")
+
+
 # Dependency for retriving database session
 def get_db():
     db = SessionLocal()
@@ -143,7 +148,11 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 
-@app.get("/users", response_model=list[schemas.User])
+@app.get(
+    "/users",
+    response_model=list[schemas.User],
+    dependencies=[Depends(is_admin)],
+)
 def read_users(
     response: Response,
     range: Union[list[int], None] = Query(default=None),
@@ -157,10 +166,16 @@ def read_users(
 
 
 @app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_entity(db, id=user_id, model=models.User)
+def read_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(auth.get_current_active_user),
+):
+    db_user: schemas.User = crud.get_entity(db, id=user_id, model=models.User)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
+    elif db_user.id != current_user.id and current_user.admin == False:
+        raise HTTPException(status_code=403, detail="Operation not permitted")
     return db_user
 
 
@@ -172,17 +187,24 @@ def read_own_details(
 
 
 @app.patch("/users/{user_id}")
-def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db)):
-    existing_user = crud.get_entity(db, id=user_id, model=models.User)
+def update_user(
+    user_id: int,
+    user: schemas.UserUpdate,
+    current_user: schemas.User = Depends(auth.get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    existing_user: schemas.User = crud.get_entity(db, id=user_id, model=models.User)
     if existing_user is None:
         raise HTTPException(status_code=404, detail="User not found")
+    elif existing_user.id != current_user.id and current_user.admin == False:
+        raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_user = crud.update_entity(
         db=db, entity_to_update=existing_user, updates=user, model=models.User
     )
     return updated_user
 
 
-@app.delete("/users/{user_id}", status_code=204)
+@app.delete("/users/{user_id}", status_code=204, dependencies=[Depends(is_admin)])
 def delete_user(user_id: int, db: Session = Depends(get_db)):
     user_to_delete = crud.get_entity(db, id=user_id, model=models.User)
     if user_to_delete is None:
@@ -193,7 +215,11 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 # Room Endpoints
 
 
-@app.post("/rooms", response_model=schemas.Room)
+@app.post(
+    "/rooms",
+    response_model=schemas.Room,
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def create_room(room: schemas.RoomCreate, db: Session = Depends(get_db)):
     db_room = crud.get_room_by_name(db, room_name=room.name)
     if db_room:
@@ -201,7 +227,11 @@ def create_room(room: schemas.RoomCreate, db: Session = Depends(get_db)):
     return crud.create_room(db=db, room=room)
 
 
-@app.get("/rooms", response_model=list[schemas.Room])
+@app.get(
+    "/rooms",
+    response_model=list[schemas.Room],
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_rooms(
     response: Response,
     range: Union[list[int], None] = Query(default=None),
@@ -214,7 +244,11 @@ def read_rooms(
     return rooms
 
 
-@app.get("/rooms/{room_id}", response_model=schemas.Room)
+@app.get(
+    "/rooms/{room_id}",
+    response_model=schemas.Room,
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_room(room_id: int, db: Session = Depends(get_db)):
     db_room = crud.get_entity(db, id=room_id, model=models.Room)
     if db_room is None:
@@ -222,7 +256,7 @@ def read_room(room_id: int, db: Session = Depends(get_db)):
     return db_room
 
 
-@app.patch("/rooms/{room_id}")
+@app.patch("/rooms/{room_id}", dependencies=[Depends(is_admin)])
 def update_room(room_id: int, room: schemas.RoomUpdate, db: Session = Depends(get_db)):
     existing_room = crud.get_entity(db, id=room_id, model=models.Room)
     if existing_room is None:
@@ -233,7 +267,7 @@ def update_room(room_id: int, room: schemas.RoomUpdate, db: Session = Depends(ge
     return updated_room
 
 
-@app.delete("/rooms/{room_id}", status_code=204)
+@app.delete("/rooms/{room_id}", status_code=204, dependencies=[Depends(is_admin)])
 def delete_room(room_id: int, db: Session = Depends(get_db)):
     room_to_delete = crud.get_entity(db, id=room_id, model=models.Room)
     if room_to_delete is None:
@@ -244,7 +278,7 @@ def delete_room(room_id: int, db: Session = Depends(get_db)):
 # Desk Endpoints
 
 
-@app.post("/desks", response_model=schemas.Desk)
+@app.post("/desks", response_model=schemas.Desk, dependencies=[Depends(is_admin)])
 def create_desk(desk: schemas.DeskCreate, db: Session = Depends(get_db)):
     db_desk = crud.get_desk_by_room_and_number(
         db, room_id=desk.room_id, desk_number=desk.number
@@ -254,7 +288,11 @@ def create_desk(desk: schemas.DeskCreate, db: Session = Depends(get_db)):
     return crud.create_desk(db=db, desk=desk)
 
 
-@app.get("/desks", response_model=list[schemas.Desk])
+@app.get(
+    "/desks",
+    response_model=list[schemas.Desk],
+    dependencies=[Depends(is_admin)],
+)
 def read_desks(
     response: Response,
     range: Union[list[int], None] = Query(default=None),
@@ -267,7 +305,11 @@ def read_desks(
     return desks
 
 
-@app.get("/rooms/{room_id}/desks", response_model=list[schemas.Desk])
+@app.get(
+    "/rooms/{room_id}/desks",
+    response_model=list[schemas.Desk],
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_desks_in_room(
     response: Response,
     room_id: int,
@@ -283,7 +325,11 @@ def read_desks_in_room(
     return desks
 
 
-@app.get("/desks/{desk_id}", response_model=schemas.Desk)
+@app.get(
+    "/desks/{desk_id}",
+    response_model=schemas.Desk,
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_desk(desk_id: int, db: Session = Depends(get_db)):
     db_desk = crud.get_entity(db, id=desk_id, model=models.Desk)
     if db_desk is None:
@@ -291,7 +337,7 @@ def read_desk(desk_id: int, db: Session = Depends(get_db)):
     return db_desk
 
 
-@app.patch("/desks/{desk_id}")
+@app.patch("/desks/{desk_id}", dependencies=[Depends(is_admin)])
 def update_desk(desk_id: int, desk: schemas.DeskUpdate, db: Session = Depends(get_db)):
     existing_desk = crud.get_entity(db, id=desk_id, model=models.Desk)
     if existing_desk is None:
@@ -302,7 +348,7 @@ def update_desk(desk_id: int, desk: schemas.DeskUpdate, db: Session = Depends(ge
     return updated_desk
 
 
-@app.delete("/desks/{desk_id}", status_code=204)
+@app.delete("/desks/{desk_id}", status_code=204, dependencies=[Depends(is_admin)])
 def delete_desk(desk_id: int, db: Session = Depends(get_db)):
     desk_to_delete = crud.get_entity(db, id=desk_id, model=models.Desk)
     if desk_to_delete is None:
@@ -313,7 +359,7 @@ def delete_desk(desk_id: int, db: Session = Depends(get_db)):
 # Booking Endpoints
 
 
-@app.post("/bookings", response_model=schemas.Booking)
+@app.post("/bookings", response_model=schemas.Booking, dependencies=[Depends(is_admin)])
 def create_booking(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
     db_booking = crud.get_booking_by_desk_and_date(
         db, desk_id=booking.desk_id, date=booking.date
@@ -323,7 +369,11 @@ def create_booking(booking: schemas.BookingCreate, db: Session = Depends(get_db)
     return crud.create_booking(db=db, booking=booking)
 
 
-@app.get("/bookings", response_model=list[schemas.Booking])
+@app.get(
+    "/bookings",
+    response_model=list[schemas.Booking],
+    dependencies=[Depends(is_admin)],
+)
 def read_bookings(
     response: Response,
     range: Union[list[int], None] = Query(default=None),
@@ -336,7 +386,11 @@ def read_bookings(
     return bookings
 
 
-@app.get("/bookings/{booking_id}", response_model=schemas.Booking)
+@app.get(
+    "/bookings/{booking_id}",
+    response_model=schemas.Booking,
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_bookings(booking_id: int, response: Response, db: Session = Depends(get_db)):
     db_booking = crud.get_entity(db, id=booking_id, model=models.Booking)
     if db_booking is None:
@@ -344,7 +398,11 @@ def read_bookings(booking_id: int, response: Response, db: Session = Depends(get
     return db_booking
 
 
-@app.get("/rooms/{room_id}/bookings/{date}", response_model=list[schemas.Booking])
+@app.get(
+    "/rooms/{room_id}/bookings/{date}",
+    response_model=list[schemas.Booking],
+    dependencies=[Depends(auth.get_current_active_user)],
+)
 def read_bookings_by_room(
     response: Response,
     date: datetime.date,
@@ -361,11 +419,18 @@ def read_bookings_by_room(
 
 @app.patch("/bookings/{booking_id}")
 def update_booking(
-    booking_id: int, booking: schemas.BookingUpdate, db: Session = Depends(get_db)
+    booking_id: int,
+    booking: schemas.BookingUpdate,
+    current_user: schemas.User = Depends(auth.get_current_active_user),
+    db: Session = Depends(get_db),
 ):
-    existing_booking = crud.get_entity(db, id=booking_id, model=models.Booking)
+    existing_booking: schemas.Booking = crud.get_entity(
+        db, id=booking_id, model=models.Booking
+    )
     if existing_booking is None:
         raise HTTPException(status_code=404, detail="Booking not found")
+    elif existing_booking.user_id != current_user.id and current_user.admin == False:
+        raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_booking = crud.update_entity(
         db=db, entity_to_update=existing_booking, updates=booking, model=models.Booking
     )
@@ -373,10 +438,18 @@ def update_booking(
 
 
 @app.delete("/bookings/{booking_id}", status_code=204)
-def delete_booking(booking_id: int, db: Session = Depends(get_db)):
-    booking_to_delete = crud.get_entity(db, id=booking_id, model=models.Booking)
+def delete_booking(
+    booking_id: int,
+    current_user: schemas.User = Depends(auth.get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    booking_to_delete: models.Booking = crud.get_entity(
+        db, id=booking_id, model=models.Booking
+    )
     if booking_to_delete is None:
         raise HTTPException(status_code=404, detail="Booking not found")
+    elif booking_to_delete.user_id != current_user.id and current_user.admin == False:
+        raise HTTPException(status_code=403, detail="Operation not permitted")
     crud.delete_entity(db, id=booking_id, model=models.Booking)
 
 
