@@ -10,6 +10,7 @@ from app import models, schemas, security
 from datetime import datetime
 
 # Generic Functions
+# No data encryption is required apart from on passwords since no sensitive information is stored
 
 
 def get_all_entities(
