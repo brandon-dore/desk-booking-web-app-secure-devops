@@ -47,6 +47,7 @@ app.add_middleware(
 
 def is_admin(user: schemas.User = Depends(auth.get_current_active_user)):
     if user.admin == False:
+        print(f"{user.username} tried to hit a restricted admin endpoint as a non-admin")
         raise HTTPException(status_code=403, detail="Operation not permitted")
 
 
@@ -193,6 +194,7 @@ def read_user(
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     elif db_user.id != current_user.id and current_user.admin == False:
+        print(f"{current_user.username} attempted to access another users resource")
         raise HTTPException(status_code=403, detail="Operation not permitted")
     return db_user
 
@@ -217,6 +219,7 @@ def update_user(
     if existing_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     elif existing_user.id != current_user.id and current_user.admin == False:
+        print(f"{current_user.username} attempted to access another users resource")
         raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_user = crud.update_entity(
         db=db, entity_to_update=existing_user, updates=user, model=models.User
@@ -474,6 +477,7 @@ def update_booking(
     if existing_booking is None:
         raise HTTPException(status_code=404, detail="Booking not found")
     elif existing_booking.user_id != current_user.id and current_user.admin == False:
+        print(f"{current_user.username} attempted to access another users resource")
         raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_booking = crud.update_entity(
         db=db, entity_to_update=existing_booking, updates=booking, model=models.Booking
@@ -494,6 +498,7 @@ def delete_booking(
     if booking_to_delete is None:
         raise HTTPException(status_code=404, detail="Booking not found")
     elif booking_to_delete.user_id != current_user.id and current_user.admin == False:
+        print(f"{current_user.username} attempted to access another users resource")
         raise HTTPException(status_code=403, detail="Operation not permitted")
     crud.delete_entity(db, id=booking_id, model=models.Booking)
 
