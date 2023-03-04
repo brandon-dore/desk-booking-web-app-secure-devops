@@ -79,6 +79,14 @@ class DeskUpdate(BaseModel):
         orm_mode = True
 
 
+class DeskSummary(DeskBase):
+    id: int
+    room: Room
+
+    class Config:
+        orm_mode = True
+
+
 class BookingBase(BaseModel):
     approved_status: bool
     date: datetime.date
@@ -99,7 +107,7 @@ class Booking(BookingBase):
 
 class BookingSummary(BookingBase):
     id: int
-    desk: Desk
+    desk: DeskSummary
     user: User
 
     class Config:
