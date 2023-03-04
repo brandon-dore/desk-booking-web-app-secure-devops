@@ -18,9 +18,18 @@ import Dashboard from "./Dashboard";
 import APIService from "../services/api.service";
 import TopBar from "../header/CommonAppBar";
 
-const httpClient = fetchUtils.fetchJson;
+// const httpClient = fetchUtils.fetchJson;
 
-const baseDataProvider = simpleRestDataProvider("http://localhost:8000");
+const httpClient = (url, options = {}) => {
+  if (!options.headers) {
+      options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const token = JSON.parse(localStorage.getItem('user'));
+  options.headers.set('Authorization', `Bearer ${token.access_token}`);
+  return fetchUtils.fetchJson(url, options);
+}
+
+const baseDataProvider = simpleRestDataProvider("http://localhost:8000", httpClient);
 
 const diff = (object, base) => {
   return transform(object, (result, value, key) => {
@@ -37,6 +46,10 @@ export const dataProvider = {
     httpClient(`http://localhost:8000/${resource}/${params.id}`, {
       method: "PATCH",
       body: JSON.stringify(diff(params.data, params.previousData)),
+      headers: new Headers({
+        "Authorization":
+        ("Bearer " + JSON.parse(localStorage.getItem("user")).access_token)
+    })
     }).then(({ json }) => ({ data: json })),
 };
 

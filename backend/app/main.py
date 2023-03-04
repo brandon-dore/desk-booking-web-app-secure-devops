@@ -19,7 +19,7 @@ from slowapi.middleware import SlowAPIMiddleware
 # Inital FastAPI Setup
 
 
-limiter = Limiter(key_func=get_remote_address, default_limits=["5/minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["35/minute"])
 
 app = FastAPI(
     title="Desk Booking API",
@@ -41,7 +41,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_methods=["*"],
-    allow_headers=["Authorization", "Content-Range", "Access-Control-Expose-Headers"],
+    allow_headers=["Authorization", "Content-Range", "Access-Control-Expose-Headers", "Host", "Accept", "Accept-Language", "Accept-Encoding", "Connection", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"],
 )
 
 
