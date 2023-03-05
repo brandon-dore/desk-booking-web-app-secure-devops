@@ -1,4 +1,6 @@
+import logging
 from typing import Union
+from uuid import UUID
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from sqlalchemy.orm.exc import NoResultFound
@@ -9,11 +11,14 @@ from app import models, schemas, security
 
 from datetime import datetime
 
+logger = logging.getLogger(__name__)
+
 # Generic Functions
 # No data encryption is required apart from on passwords since no sensitive information is stored
 
 
 def get_all_entities(
+    current_uuid: UUID,
     db: Session,
     range: Union[list[int], None],
     sort: Union[list[str], None],
@@ -32,6 +37,7 @@ def get_all_entities(
     Returns:
         model (List[models.x] or None): A list of the retrived entity or None if not found
     """
+    logger.debug(f"{current_uuid} - Entered get all entities function")
     if sort == None:
         users_id = getattr(model, "id").asc()
     else:
@@ -41,12 +47,20 @@ def get_all_entities(
             else getattr(model, sort[0]).desc()
         )
     if range == None:
-        return db.query(model).order_by(users_id).all()
+        result = db.query(model).order_by(users_id).all()
     else:
-        return db.query(model).order_by(users_id).offset(range[0]).limit(range[1]).all()
+        result = (
+            db.query(model).order_by(users_id).offset(range[0]).limit(range[1]).all()
+        )
+    logger.info(
+        f"{current_uuid} - Successfully retrived all entities for MODEL(MODEL={model})"
+    )
+    logger.debug(f"{current_uuid} - Exiting get all entities function")
+    return result
 
 
 def get_entity(
+    current_uuid: UUID,
     db: Session,
     id: int,
     model: Union[models.User, models.Room, models.Desk, models.Booking],
@@ -62,10 +76,12 @@ def get_entity(
     Returns:
             model (models.x or None): SQLAlchemy representation of the retrived entity or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get entity function")
     return db.query(model).filter(model.id == id).first()
 
 
 def update_entity(
+    current_uuid: UUID,
     db: Session,
     entity_to_update: Union[models.User, models.Room, models.Desk, models.Booking],
     updates: Union[
@@ -88,15 +104,24 @@ def update_entity(
     Returns:
             model (models.x or None): SQLAlchemy representation of the retrived entity or None if not found
     """
+    logger.debug(f"{current_uuid} - Entered update entity function")
     update_data = updates.dict(exclude_unset=True)
+    logger.debug(f"{current_uuid} - Looping through object to update attributes")
     for key, value in update_data.items():
         setattr(entity_to_update, key, value)
     db.commit()
-    updated_entity = get_entity(db, id=model.id, model=model)
+    updated_entity = get_entity(
+        current_uuid=current_uuid, db=db, id=model.id, model=model
+    )
+    logger.info(
+        f"{current_uuid} - Successfully updated MODEL(ID={model.id} MODEL={model})"
+    )
+    logger.debug(f"{current_uuid} - Exiting update entity function")
     return updated_entity
 
 
 def delete_entity(
+    current_uuid: UUID,
     db: Session,
     id: int,
     model: Union[models.User, models.Room, models.Desk, models.Booking],
@@ -109,14 +134,19 @@ def delete_entity(
             id (int): An integer representing an enitys ID in the database
             model (models): The table, represented as a model, to retrive from
     """
+    logger.debug(f"{current_uuid} - Entered delete entity function")
     db.query(model).filter(model.id == id).delete()
     db.commit()
+    logger.info(
+        f"{current_uuid} - Successfully deleted MODEL(ID={model.id} MODEL={model})"
+    )
+    logger.debug(f"{current_uuid} - Exiting delete entity function")
 
 
 # Users Functions
 
 
-def get_user_by_username(db: Session, username: str):
+def get_user_by_username(current_uuid: UUID, db: Session, username: str):
     """
     Retrives a user from a database based on their username and returns that user
 
@@ -127,10 +157,11 @@ def get_user_by_username(db: Session, username: str):
     Returns:
             user (models.user or None): SQLAlchemy representation of a user or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get user by username function")
     return db.query(models.User).filter(models.User.username == username).first()
 
 
-def create_user(db: Session, user: schemas.UserCreate):
+def create_user(current_uuid: UUID, db: Session, user: schemas.UserCreate):
     """
     Creates a user entry in the database based on the values passed in
 
@@ -141,22 +172,28 @@ def create_user(db: Session, user: schemas.UserCreate):
     Returns:
             user (models.user or None): The created user
     """
+    logger.debug(f"{current_uuid} - Entered create user function")
     db_user = models.User(
         email=user.email,
         username=user.username,
         hashed_password=security.get_hashed_password(user.password),
         admin=user.admin,
     )
+    logger.debug(f"{current_uuid} - Created user model")
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    logger.info(
+        f"{current_uuid} - USER(ID={db_user.id}, USERNAME={db_user.username}) successfully created"
+    )
+    logger.debug(f"{current_uuid} - Exiting create user function")
     return db_user
 
 
 # Room Functions
 
 
-def get_room_by_name(db: Session, room_name: str):
+def get_room_by_name(current_uuid: UUID, db: Session, room_name: str):
     """
     Finds a room based on its name
 
@@ -167,10 +204,11 @@ def get_room_by_name(db: Session, room_name: str):
     Returns:
             bookings (models.room or None): The retrived room or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get room by name function")
     return db.query(models.Room).filter(models.Room.name == room_name).first()
 
 
-def create_room(db: Session, room: schemas.RoomCreate):
+def create_room(current_uuid: UUID, db: Session, room: schemas.RoomCreate):
     """
     Creates a room entry in the database based on the values passed in
 
@@ -179,19 +217,27 @@ def create_room(db: Session, room: schemas.RoomCreate):
             room (schemas.RoomCreate): An object with the properties required to make a room
 
     Returns:
-            user (models.user or None): The created room
+            room (models.user or None): The created room
     """
+    logger.debug(f"{current_uuid} - Entered create room function")
     db_room = models.Room(name=room.name)
+    logger.debug(f"{current_uuid} - Created room model")
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
+    logger.info(
+        f"{current_uuid} - ROOM(ID={db_room.id}, NAME={db_room.name}) successfully created"
+    )
+    logger.debug(f"{current_uuid} - Exiting create room function")
     return db_room
 
 
 # Desk Functions
 
 
-def get_desk_by_room_and_number(db: Session, desk_number: int, room_id: int):
+def get_desk_by_room_and_number(
+    current_uuid: UUID, db: Session, desk_number: int, room_id: int
+):
     """
     Finds a desk based on the number of the desk and the room it is in
 
@@ -203,6 +249,7 @@ def get_desk_by_room_and_number(db: Session, desk_number: int, room_id: int):
     Returns:
             bookings (models.Desk or None): The retrived desk or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get desk by room and number function")
     return (
         db.query(models.Desk)
         .filter(and_(models.Desk.room_id == room_id, models.Desk.number == desk_number))
@@ -211,6 +258,7 @@ def get_desk_by_room_and_number(db: Session, desk_number: int, room_id: int):
 
 
 def get_desks_in_room(
+    current_uuid: UUID,
     db: Session,
     room_id: int,
     range: Union[list[int], None],
@@ -229,6 +277,7 @@ def get_desks_in_room(
     Returns:
         model (List[models.desk] or None): A list of the retrived entity or None if not found
     """
+    logger.debug(f"{current_uuid} - Entered get desks in room function")
     if sort == None:
         desks_order = getattr(models.Desk, "id").asc()
     else:
@@ -238,14 +287,14 @@ def get_desks_in_room(
             else getattr(models.Desk, sort[0]).desc()
         )
     if range == None:
-        return (
+        result = (
             db.query(models.Desk)
             .filter(models.Desk.room_id == room_id)
             .order_by(desks_order)
             .all()
         )
     else:
-        return (
+        result = (
             db.query(models.Desk)
             .filter(models.Desk.room_id == room_id)
             .order_by(desks_order)
@@ -253,9 +302,12 @@ def get_desks_in_room(
             .limit(range[1])
             .all()
         )
+    logger.info(f"{current_uuid} - Successfully retrived all DESK(ROOM_ID={room_id})")
+    logger.debug(f"{current_uuid} - Exiting get desks in room function")
+    return result
 
 
-def create_desk(db: Session, desk: schemas.DeskCreate):
+def create_desk(current_uuid: UUID, db: Session, desk: schemas.DeskCreate):
     """
     Creates a desk entry in the database based on the values passed in
 
@@ -266,17 +318,25 @@ def create_desk(db: Session, desk: schemas.DeskCreate):
     Returns:
             user (models.user or None): The created desk
     """
+    logger.debug(f"{current_uuid} - Entered create user function")
     db_desk = models.Desk(number=desk.number, room_id=desk.room_id)
+    logger.debug(f"{current_uuid} - Created user model")
     db.add(db_desk)
     db.commit()
     db.refresh(db_desk)
+    logger.info(
+        f"{current_uuid} - DESK(ID={db_desk.id}, NUMBER={db_desk.number} ROOM_ID={db_desk.room_id}) successfully created"
+    )
+    logger.debug(f"{current_uuid} - Exiting create user function")
     return db_desk
 
 
 # Booking Functions
 
 
-def get_booking_by_desk_and_date(db: Session, desk_id: int, date: datetime.date):
+def get_booking_by_desk_and_date(
+    current_uuid: UUID, db: Session, desk_id: int, date: datetime.date
+):
     """
     Gets a booking for a desk on specified date if one exists
 
@@ -288,6 +348,7 @@ def get_booking_by_desk_and_date(db: Session, desk_id: int, date: datetime.date)
     Returns:
             bookings (models.booking or None): The retrived booking or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get booking by desk and date function")
     try:
         return (
             db.query(models.Booking)
@@ -300,7 +361,9 @@ def get_booking_by_desk_and_date(db: Session, desk_id: int, date: datetime.date)
         return None
 
 
-def get_bookings_by_room(db: Session, room_id: int, date: datetime.date):
+def get_bookings_by_room(
+    current_uuid: UUID, db: Session, room_id: int, date: datetime.date
+):
     """
     Gets all the the bookings that have been made in a specific room
 
@@ -312,6 +375,7 @@ def get_bookings_by_room(db: Session, room_id: int, date: datetime.date):
     Returns:
             bookings (List[models.booking] or None): A list of the retrived bookings or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get booking by room function")
     try:
         return (
             db.query(models.Booking)
@@ -328,7 +392,7 @@ def get_bookings_by_room(db: Session, room_id: int, date: datetime.date):
         return None
 
 
-def create_booking(db: Session, booking: schemas.BookingCreate):
+def create_booking(current_uuid: UUID, db: Session, booking: schemas.BookingCreate):
     """
     Creates a booking in the database based on the values passed in
 
@@ -339,19 +403,25 @@ def create_booking(db: Session, booking: schemas.BookingCreate):
     Returns:
             user (models.user or None): The created booking
     """
+    logger.debug(f"{current_uuid} - Entered create booking function")
     db_booking = models.Booking(
         user_id=booking.user_id,
         desk_id=booking.desk_id,
         date=booking.date,
         approved_status=booking.approved_status,
     )
+    logger.debug(f"{current_uuid} - Created booking model")
     db.add(db_booking)
     db.commit()
     db.refresh(db_booking)
+    logger.info(
+        f"{current_uuid} - BOOKING(ID={db_booking.id}, USER_ID={db_booking.user_id}) successfully created"
+    )
+    logger.debug(f"{current_uuid} - Exiting create room function")
     return db_booking
 
 
-def get_users_bookings(db: Session, user_id: int):
+def get_users_bookings(current_uuid: UUID, db: Session, user_id: int):
     """
     Gets all the bookings of a user, using their user id
 
@@ -362,6 +432,7 @@ def get_users_bookings(db: Session, user_id: int):
     Returns:
             bookings (List[models.booking] or None): A list of the retrived bookings or None if not found
     """
+    logger.debug(f"{current_uuid} - Running get users bookings function")
     bookings_order = getattr(models.Booking, "date").desc()
     return (
         db.query(models.Booking)

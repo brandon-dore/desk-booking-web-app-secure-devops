@@ -25,6 +25,16 @@
             "maxBytes": 10485760,
             "backupCount": 5,
             "encoding": "utf8"
+        },
+
+        "file_handler_uvicorn": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "filename": "app/logs/uvicorn.log",
+            "maxBytes": 10485760,
+            "backupCount": 5,
+            "encoding": "utf8"
         }
     },
     
@@ -32,7 +42,7 @@
     "loggers": {
         "uvicorn": {
             "level": "INFO",
-            "handlers": ["console", "file_handler"],
+            "handlers": ["console", "file_handler_uvicorn"],
             "propagate": false
         }
     },
