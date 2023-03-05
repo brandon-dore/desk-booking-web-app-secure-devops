@@ -1,3 +1,7 @@
+import logging
+import uuid
+import time
+
 from typing import Union
 from urllib.parse import urlencode
 from fastapi import Depends, FastAPI, HTTPException, status, Response, Request, Query
@@ -16,8 +20,7 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-# Inital FastAPI Setup
-
+logger = logging.getLogger(__name__)
 
 limiter = Limiter(key_func=get_remote_address, default_limits=["35/minute"])
 
@@ -40,29 +43,9 @@ origins = ["http://localhost:3000"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_methods=["*"],
-    allow_headers=[
-        "Authorization",
-        "Content-Range",
-        "Access-Control-Expose-Headers",
-        "Host",
-        "Accept",
-        "Accept-Language",
-        "Accept-Encoding",
-        "Connection",
-        "Origin",
-        "Access-Control-Request-Method",
-        "Access-Control-Request-Headers",
-    ],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
 )
-
-
-def is_admin(user: schemas.User = Depends(auth.get_current_active_user)):
-    if user.admin == False:
-        print(
-            f"{user.username} tried to hit a restricted admin endpoint as a non-admin"
-        )
-        raise HTTPException(status_code=403, detail="Operation not permitted")
 
 
 # Dependency for retriving database session
@@ -105,6 +88,26 @@ def flatten_query_string_lists(request: Request, call_next):
     return call_next(request)
 
 
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    generated_uuid = str(uuid.uuid4())
+    logger.info(
+        f"{generated_uuid} - Start of {request.method} request to path {request.url.path[1:]}"
+    )
+    start_time = time.time()
+    request.state.uuid = generated_uuid
+
+    response = await call_next(request)
+
+    process_time = (time.time() - start_time) * 1000
+    formatted_process_time = "{0:.2f}".format(process_time)
+    logger.info(
+        f"{generated_uuid} - Response sent, completed in {formatted_process_time}ms with status code {response.status_code}"
+    )
+
+    return response
+
+
 # Start of request mapping, majority of functions only perform a call to crud.py with some error handling
 # More complex functions are commented on. All crud.py functions are commented to help with understanding here.
 
@@ -112,7 +115,9 @@ def flatten_query_string_lists(request: Request, call_next):
 
 
 @app.get("/", response_class=RedirectResponse, include_in_schema=False)
-def docs():
+def docs(request: Request):
+    current_uuid = request.state.uuid
+    logger.info(f"{current_uuid} - Redirecting request to /docs")
     return RedirectResponse(url="/docs")
 
 
@@ -137,7 +142,11 @@ def login_and_get_token(
     Returns:
         JWT (dictionary): A dictionary containing the JWTs access and refresh token as well as the token type
     """
-    user = auth.authenticate_user(db, form_data.username, form_data.password)
+    current_uuid = request.state.uuid
+    logger.debug(f"{current_uuid} - Entered login and get token function")
+    user = auth.authenticate_user(
+        current_uuid, db, form_data.username, form_data.password
+    )
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -151,13 +160,18 @@ def login_and_get_token(
         minutes=security.REFRESH_TOKEN_EXPIRE_MINUTES
     )
 
+    logger.info(f"{current_uuid} - Generated JWTs")
+    logger.debug(f"{current_uuid} - Exiting login and get token function")
+
     return {
         "access_token": auth.generic_token_creation(
+            current_uuid=current_uuid,
             data={"sub": user.username},
             expires_delta=access_token_expires,
             token_type="access",
         ),
         "refresh_token": auth.generic_token_creation(
+            current_uuid=current_uuid,
             data={"sub": user.username},
             expires_delta=refresh_token_expires,
             token_type="refresh",
@@ -174,16 +188,23 @@ def login_and_get_token(
 def create_user(
     request: Request, user: schemas.UserCreate, db: Session = Depends(get_db)
 ):
-    db_user = crud.get_user_by_username(db, username=user.username)
+    current_uuid = request.state.uuid
+    logger.debug(f"{current_uuid} - Entered create user function")
+    db_user = crud.get_user_by_username(
+        current_uuid=current_uuid, db=db, username=user.username
+    )
     if db_user:
+        logger.info(f"{current_uuid} - Email alreadys exists, user will not be created")
         raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+    logger.debug(f"{current_uuid} - Exiting create user function")
+    logger.info(f"{current_uuid} - Creating user")
+    return crud.create_user(current_uuid=current_uuid, db=db, user=user)
 
 
 @app.get(
     "/users",
     response_model=list[schemas.User],
-    dependencies=[Depends(is_admin)],
+    dependencies=[Depends(auth.is_admin)],
 )
 def read_users(
     request: Request,
@@ -192,9 +213,15 @@ def read_users(
     sort: Union[list[str], None] = Query(default=["id", "ASC"]),
     db: Session = Depends(get_db),
 ):
-    users = crud.get_all_entities(db, range=range, sort=sort, model=models.User)
+    current_uuid = request.state.uuid
+    logger.debug(f"{current_uuid} - Entered read users function")
+    users = crud.get_all_entities(
+        current_uuid=current_uuid, db=db, range=range, sort=sort, model=models.User
+    )
+    logger.info(f"{current_uuid} - Retrived users")
     response.headers["Content-Range"] = str(len(users))
     response.headers["Access-Control-Expose-Headers"] = "Content-Range"
+    logger.debug(f"{current_uuid} - Exiting read users function")
     return users
 
 
@@ -205,11 +232,18 @@ def read_user(
     db: Session = Depends(get_db),
     current_user: schemas.User = Depends(auth.get_current_active_user),
 ):
-    db_user: schemas.User = crud.get_entity(db, id=user_id, model=models.User)
+    current_uuid = request.state.uuid
+    logger.debug(f"{current_uuid} - Entered read users function")
+    db_user: schemas.User = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=user_id, model=models.User
+    )
     if db_user is None:
+        logger.info(f"{request.state.uuid} - Requested user ID does not exist")
         raise HTTPException(status_code=404, detail="User not found")
     elif db_user.id != current_user.id and current_user.admin == False:
-        print(f"{current_user.username} attempted to access another users resource")
+        logger.info(
+            f"{request.state.uuid} - USER(ID={current_user.id} USERNAME={current_user.username}) attempted to get another users resource"
+        )
         raise HTTPException(status_code=403, detail="Operation not permitted")
     return db_user
 
@@ -231,24 +265,38 @@ def update_user(
     current_user: schemas.User = Depends(auth.get_current_active_user),
     db: Session = Depends(get_db),
 ):
-    existing_user: schemas.User = crud.get_entity(db, id=user_id, model=models.User)
+    current_uuid = request.state.uuid
+    existing_user: schemas.User = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=user_id, model=models.User
+    )
     if existing_user is None:
+        logger.info(f"{request.state.uuid} - Requested user ID does not exist")
         raise HTTPException(status_code=404, detail="User not found")
     elif existing_user.id != current_user.id and current_user.admin == False:
-        print(f"{current_user.username} attempted to access another users resource")
+        logger.info(
+            f"{request.state.uuid} - USER(ID={current_user.id} USERNAME={current_user.username}) attempted to get another users resource"
+        )
         raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_user = crud.update_entity(
-        db=db, entity_to_update=existing_user, updates=user, model=models.User
+        current_uuid=current_uuid,
+        db=db,
+        entity_to_update=existing_user,
+        updates=user,
+        model=models.User,
     )
     return updated_user
 
 
-@app.delete("/users/{user_id}", status_code=204, dependencies=[Depends(is_admin)])
+@app.delete("/users/{user_id}", status_code=204, dependencies=[Depends(auth.is_admin)])
 def delete_user(request: Request, user_id: int, db: Session = Depends(get_db)):
-    user_to_delete = crud.get_entity(db, id=user_id, model=models.User)
+    current_uuid = request.state.uuid
+    user_to_delete = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=user_id, model=models.User
+    )
     if user_to_delete is None:
+        logger.info(f"{request.state.uuid} - Requested ID for deletion does not exist")
         raise HTTPException(status_code=404, detail="User not found")
-    crud.delete_entity(db, id=user_id, model=models.User)
+    crud.delete_entity(current_uuid=current_uuid, db=db, id=user_id, model=models.User)
 
 
 # Room Endpoints
@@ -262,10 +310,14 @@ def delete_user(request: Request, user_id: int, db: Session = Depends(get_db)):
 def create_room(
     request: Request, room: schemas.RoomCreate, db: Session = Depends(get_db)
 ):
-    db_room = crud.get_room_by_name(db, room_name=room.name)
+    current_uuid = request.state.uuid
+    db_room = crud.get_room_by_name(
+        current_uuid=current_uuid, db=db, room_name=room.name
+    )
     if db_room:
+        logger.info(f"{request.state.uuid} - Room already exists")
         raise HTTPException(status_code=400, detail="Room already exists")
-    return crud.create_room(db=db, room=room)
+    return crud.create_room(current_uuid=current_uuid, db=db, room=room)
 
 
 @app.get(
@@ -280,7 +332,10 @@ def read_rooms(
     sort: Union[list[str], None] = Query(default=["id", "ASC"]),
     db: Session = Depends(get_db),
 ):
-    rooms = crud.get_all_entities(db, range=range, sort=sort, model=models.Room)
+    current_uuid = request.state.uuid
+    rooms = crud.get_all_entities(
+        current_uuid=current_uuid, db=db, range=range, sort=sort, model=models.Room
+    )
     response.headers["Content-Range"] = str(len(rooms))
     response.headers["Access-Control-Expose-Headers"] = "Content-Range"
     return rooms
@@ -292,55 +347,73 @@ def read_rooms(
     dependencies=[Depends(auth.get_current_active_user)],
 )
 def read_room(request: Request, room_id: int, db: Session = Depends(get_db)):
-    db_room = crud.get_entity(db, id=room_id, model=models.Room)
+    current_uuid = request.state.uuid
+    db_room = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=room_id, model=models.Room
+    )
     if db_room is None:
+        logger.info(f"{request.state.uuid} - Requested room does not exist")
         raise HTTPException(status_code=404, detail="Room not found")
     return db_room
 
 
-@app.patch("/rooms/{room_id}", dependencies=[Depends(is_admin)])
+@app.patch("/rooms/{room_id}", dependencies=[Depends(auth.is_admin)])
 def update_room(
     request: Request,
     room_id: int,
     room: schemas.RoomUpdate,
     db: Session = Depends(get_db),
 ):
-    existing_room = crud.get_entity(db, id=room_id, model=models.Room)
+    current_uuid = request.state.uuid
+    existing_room = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=room_id, model=models.Room
+    )
     if existing_room is None:
+        logger.info(f"{request.state.uuid} - Requested room does not exist")
         raise HTTPException(status_code=404, detail="Room not found")
     updated_room = crud.update_entity(
-        db=db, entity_to_update=existing_room, updates=room, model=models.Room
+        current_uuid=current_uuid,
+        db=db,
+        entity_to_update=existing_room,
+        updates=room,
+        model=models.Room,
     )
     return updated_room
 
 
-@app.delete("/rooms/{room_id}", status_code=204, dependencies=[Depends(is_admin)])
+@app.delete("/rooms/{room_id}", status_code=204, dependencies=[Depends(auth.is_admin)])
 def delete_room(request: Request, room_id: int, db: Session = Depends(get_db)):
-    room_to_delete = crud.get_entity(db, id=room_id, model=models.Room)
+    current_uuid = request.state.uuid
+    room_to_delete = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=room_id, model=models.Room
+    )
     if room_to_delete is None:
+        logger.info(f"{request.state.uuid} - Requested ID for deletion does not exist")
         raise HTTPException(status_code=404, detail="Room not found")
-    crud.delete_entity(db, id=room_id, model=models.Room)
+    crud.delete_entity(current_uuid=current_uuid, db=db, id=room_id, model=models.Room)
 
 
 # Desk Endpoints
 
 
-@app.post("/desks", response_model=schemas.Desk, dependencies=[Depends(is_admin)])
+@app.post("/desks", response_model=schemas.Desk, dependencies=[Depends(auth.is_admin)])
 def create_desk(
     request: Request, desk: schemas.DeskCreate, db: Session = Depends(get_db)
 ):
+    current_uuid = request.state.uuid
     db_desk = crud.get_desk_by_room_and_number(
-        db, room_id=desk.room_id, desk_number=desk.number
+        current_uuid=current_uuid, db=db, room_id=desk.room_id, desk_number=desk.number
     )
     if db_desk:
+        logger.info(f"{request.state.uuid} - Desk already exists")
         raise HTTPException(status_code=400, detail="Desk already exists")
-    return crud.create_desk(db=db, desk=desk)
+    return crud.create_desk(current_uuid=current_uuid, db=db, desk=desk)
 
 
 @app.get(
     "/desks",
     response_model=list[schemas.Desk],
-    dependencies=[Depends(is_admin)],
+    dependencies=[Depends(auth.is_admin)],
 )
 def read_desks(
     request: Request,
@@ -349,7 +422,10 @@ def read_desks(
     sort: Union[list[str], None] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    desks = crud.get_all_entities(db, range=range, sort=sort, model=models.Desk)
+    current_uuid = request.state.uuid
+    desks = crud.get_all_entities(
+        current_uuid=current_uuid, db=db, range=range, sort=sort, model=models.Desk
+    )
     response.headers["Content-Range"] = str(len(desks))
     response.headers["Access-Control-Expose-Headers"] = "Content-Range"
     return desks
@@ -368,10 +444,14 @@ def read_desks_in_room(
     sort: Union[list[str], None] = Query(default=["id", "ASC"]),
     db: Session = Depends(get_db),
 ):
-    desks = crud.get_desks_in_room(db, room_id=room_id, range=range, sort=sort)
+    current_uuid = request.state.uuid
+    desks = crud.get_desks_in_room(
+        current_uuid=current_uuid, db=db, room_id=room_id, range=range, sort=sort
+    )
     response.headers["Content-Range"] = str(len(desks))
     response.headers["Access-Control-Expose-Headers"] = "Content-Range"
     if desks is None:
+        logger.info(f"{request.state.uuid} - Requested room does not exist")
         raise HTTPException(status_code=404, detail="Room not found")
     return desks
 
@@ -382,55 +462,75 @@ def read_desks_in_room(
     dependencies=[Depends(auth.get_current_active_user)],
 )
 def read_desk(request: Request, desk_id: int, db: Session = Depends(get_db)):
-    db_desk = crud.get_entity(db, id=desk_id, model=models.Desk)
+    current_uuid = request.state.uuid
+    db_desk = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=desk_id, model=models.Desk
+    )
     if db_desk is None:
+        logger.info(f"{request.state.uuid} - Requested desk does not exist")
         raise HTTPException(status_code=404, detail="Desk not found")
     return db_desk
 
 
-@app.patch("/desks/{desk_id}", dependencies=[Depends(is_admin)])
+@app.patch("/desks/{desk_id}", dependencies=[Depends(auth.is_admin)])
 def update_desk(
     request: Request,
     desk_id: int,
     desk: schemas.DeskUpdate,
     db: Session = Depends(get_db),
 ):
-    existing_desk = crud.get_entity(db, id=desk_id, model=models.Desk)
+    current_uuid = request.state.uuid
+    existing_desk = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=desk_id, model=models.Desk
+    )
     if existing_desk is None:
+        logger.info(f"{request.state.uuid} - Requested desk does not exist")
         raise HTTPException(status_code=404, detail="Desk not found")
     updated_desk = crud.update_entity(
-        db=db, entity_to_update=existing_desk, updates=desk, model=models.Desk
+        current_uuid=current_uuid,
+        db=db,
+        entity_to_update=existing_desk,
+        updates=desk,
+        model=models.Desk,
     )
     return updated_desk
 
 
-@app.delete("/desks/{desk_id}", status_code=204, dependencies=[Depends(is_admin)])
+@app.delete("/desks/{desk_id}", status_code=204, dependencies=[Depends(auth.is_admin)])
 def delete_desk(request: Request, desk_id: int, db: Session = Depends(get_db)):
-    desk_to_delete = crud.get_entity(db, id=desk_id, model=models.Desk)
+    current_uuid = request.state.uuid
+    desk_to_delete = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=desk_id, model=models.Desk
+    )
     if desk_to_delete is None:
+        logger.info(f"{request.state.uuid} - Requested ID for deletion does not exist")
         raise HTTPException(status_code=404, detail="Desk not found")
-    crud.delete_entity(db, id=desk_id, model=models.Desk)
+    crud.delete_entity(current_uuid=current_uuid, db=db, id=desk_id, model=models.Desk)
 
 
 # Booking Endpoints
 
 
-@app.post("/bookings", response_model=schemas.Booking, dependencies=[Depends(is_admin)])
+@app.post(
+    "/bookings", response_model=schemas.Booking, dependencies=[Depends(auth.is_admin)]
+)
 def create_booking(
     request: Request, booking: schemas.BookingCreate, db: Session = Depends(get_db)
 ):
+    current_uuid = request.state.uuid
     db_booking = crud.get_booking_by_desk_and_date(
-        db, desk_id=booking.desk_id, date=booking.date
+        current_uuid=current_uuid, db=db, desk_id=booking.desk_id, date=booking.date
     )
     if db_booking:
+        logger.info(f"{request.state.uuid} - Booking already exists")
         raise HTTPException(status_code=400, detail="Booking already exists")
-    return crud.create_booking(db=db, booking=booking)
+    return crud.create_booking(current_uuid=current_uuid, db=db, booking=booking)
 
 
 @app.get(
     "/bookings",
     response_model=list[schemas.Booking],
-    dependencies=[Depends(is_admin)],
+    dependencies=[Depends(auth.is_admin)],
 )
 def read_bookings(
     request: Request,
@@ -439,7 +539,10 @@ def read_bookings(
     sort: Union[list[str], None] = Query(default=["id", "ASC"]),
     db: Session = Depends(get_db),
 ):
-    bookings = crud.get_all_entities(db, range=range, sort=sort, model=models.Booking)
+    current_uuid = request.state.uuid
+    bookings = crud.get_all_entities(
+        current_uuid=current_uuid, db=db, range=range, sort=sort, model=models.Booking
+    )
     response.headers["Content-Range"] = str(len(bookings))
     response.headers["Access-Control-Expose-Headers"] = "Content-Range"
     return bookings
@@ -453,7 +556,10 @@ def read_bookings(
 def read_bookings(
     request: Request, booking_id: int, response: Response, db: Session = Depends(get_db)
 ):
-    db_booking = crud.get_entity(db, id=booking_id, model=models.Booking)
+    current_uuid = request.state.uuid
+    db_booking = crud.get_entity(
+        current_uuid=current_uuid, db=db, id=booking_id, model=models.Booking
+    )
     if db_booking is None:
         raise HTTPException(status_code=404, detail="Booking not found")
     return db_booking
@@ -473,8 +579,12 @@ def read_bookings_by_room(
     sort: Union[list[str], None] = Query(default=["id", "ASC"]),
     db: Session = Depends(get_db),
 ):
-    db_booking = crud.get_bookings_by_room(db, date=date, room_id=room_id)
+    current_uuid = request.state.uuid
+    db_booking = crud.get_bookings_by_room(
+        current_uuid=current_uuid, db=db, date=date, room_id=room_id
+    )
     if db_booking is None:
+        logger.info(f"{request.state.uuid} - Requested booking does not exist")
         raise HTTPException(status_code=404, detail="Booking not found")
     return db_booking
 
@@ -487,16 +597,24 @@ def update_booking(
     current_user: schemas.User = Depends(auth.get_current_active_user),
     db: Session = Depends(get_db),
 ):
+    current_uuid = request.state.uuid
     existing_booking: schemas.Booking = crud.get_entity(
-        db, id=booking_id, model=models.Booking
+        current_uuid=current_uuid, db=db, id=booking_id, model=models.Booking
     )
     if existing_booking is None:
+        logger.info(f"{request.state.uuid} - Requested booking does not exist")
         raise HTTPException(status_code=404, detail="Booking not found")
     elif existing_booking.user_id != current_user.id and current_user.admin == False:
-        print(f"{current_user.username} attempted to access another users resource")
+        logger.info(
+            f"{request.state.uuid} - USER(ID={current_user.id} USERNAME={current_user.username}) attempted to get another users resource"
+        )
         raise HTTPException(status_code=403, detail="Operation not permitted")
     updated_booking = crud.update_entity(
-        db=db, entity_to_update=existing_booking, updates=booking, model=models.Booking
+        current_uuid=current_uuid,
+        db=db,
+        entity_to_update=existing_booking,
+        updates=booking,
+        model=models.Booking,
     )
     return updated_booking
 
@@ -508,15 +626,21 @@ def delete_booking(
     current_user: schemas.User = Depends(auth.get_current_active_user),
     db: Session = Depends(get_db),
 ):
+    current_uuid = request.state.uuid
     booking_to_delete: models.Booking = crud.get_entity(
-        db, id=booking_id, model=models.Booking
+        current_uuid=current_uuid, db=db, id=booking_id, model=models.Booking
     )
     if booking_to_delete is None:
+        logger.info(f"{request.state.uuid} - Requested ID for deletion does not exist")
         raise HTTPException(status_code=404, detail="Booking not found")
     elif booking_to_delete.user_id != current_user.id and current_user.admin == False:
-        print(f"{current_user.username} attempted to access another users resource")
+        logger.info(
+            f"{request.state.uuid} - USER(ID={current_user.id} USERNAME={current_user.username}) attempted to get another users resource"
+        )
         raise HTTPException(status_code=403, detail="Operation not permitted")
-    crud.delete_entity(db, id=booking_id, model=models.Booking)
+    crud.delete_entity(
+        current_uuid=current_uuid, db=db, id=booking_id, model=models.Booking
+    )
 
 
 @app.get("/users/me/bookings/", response_model=list[schemas.BookingSummary])
@@ -525,4 +649,7 @@ async def read_own_items(
     current_user: schemas.User = Depends(auth.get_current_active_user),
     db: Session = Depends(get_db),
 ):
-    return crud.get_users_bookings(db=db, user_id=current_user.id)
+    current_uuid = request.state.uuid
+    return crud.get_users_bookings(
+        current_uuid=current_uuid, db=db, user_id=current_user.id
+    )

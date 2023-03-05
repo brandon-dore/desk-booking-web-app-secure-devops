@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "simple": {
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        },
+        "extra": {"format":"%(asctime)-16s %(name)-8s %(filename)-12s %(lineno)-6s %(funcName)-30s %(levelname)-8s %(message)s",
+                 "datefmt":"%m-%d %H:%M:%S"}
+    },
+    
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+    
+        "file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "filename": "app/logs/app.log",
+            "maxBytes": 10485760,
+            "backupCount": 5,
+            "encoding": "utf8"
+        },
+
+        "file_handler_uvicorn": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "filename": "app/logs/uvicorn.log",
+            "maxBytes": 10485760,
+            "backupCount": 5,
+            "encoding": "utf8"
+        }
+    },
+    
+    
+    "loggers": {
+        "uvicorn": {
+            "level": "INFO",
+            "handlers": ["console", "file_handler_uvicorn"],
+            "propagate": false
+        }
+    },
+    
+    "root": {
+        "level": "INFO",
+        "handlers": ["console", "file_handler"],
+        "propagate": false
+    }
+}

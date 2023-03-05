@@ -1,0 +1,78 @@
+2023-03-05 16:59:16,069 - uvicorn.error - INFO - Started server process [928]
+2023-03-05 16:59:16,070 - uvicorn.error - INFO - Waiting for application startup.
+2023-03-05 16:59:16,070 - uvicorn.error - INFO - Application startup complete.
+2023-03-05 16:59:16,071 - uvicorn.error - INFO - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2023-03-05 16:59:16,494 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:16,500 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:18,086 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:18,091 - uvicorn.access - INFO - 127.0.0.1:63853 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:18,096 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:18,102 - uvicorn.access - INFO - 127.0.0.1:63853 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:20,531 - uvicorn.access - INFO - 127.0.0.1:63853 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:20,565 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:20,570 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /rooms HTTP/1.1" 200
+2023-03-05 16:59:20,574 - uvicorn.access - INFO - 127.0.0.1:63853 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:20,579 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:20,582 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /rooms HTTP/1.1" 200
+2023-03-05 16:59:21,421 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /rooms/1/desks?range=0&range=25 HTTP/1.1" 200
+2023-03-05 16:59:21,463 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /rooms/1/bookings/2023-03-05 HTTP/1.1" 200
+2023-03-05 16:59:21,471 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/1 HTTP/1.1" 200
+2023-03-05 16:59:23,217 - uvicorn.access - INFO - 127.0.0.1:63873 - "POST /bookings HTTP/1.1" 200
+2023-03-05 16:59:23,231 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /rooms/1/bookings/2023-03-05 HTTP/1.1" 200
+2023-03-05 16:59:23,255 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/1 HTTP/1.1" 200
+2023-03-05 16:59:23,261 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/1 HTTP/1.1" 200
+2023-03-05 16:59:24,301 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /rooms/2/desks?range=0&range=25 HTTP/1.1" 200
+2023-03-05 16:59:24,308 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /rooms/2/bookings/2023-03-05 HTTP/1.1" 200
+2023-03-05 16:59:24,329 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /rooms/2/bookings/2023-03-05 HTTP/1.1" 200
+2023-03-05 16:59:26,579 - uvicorn.access - INFO - 127.0.0.1:63869 - "OPTIONS /rooms/2/bookings/2023-03-15 HTTP/1.1" 200
+2023-03-05 16:59:26,586 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /rooms/2/bookings/2023-03-15 HTTP/1.1" 200
+2023-03-05 16:59:27,325 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:27,329 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:27,335 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:27,340 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:27,367 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:27,371 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /users/me/ HTTP/1.1" 200
+2023-03-05 16:59:28,279 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /bookings?filter=%7B%7D&range=0&range=9&sort=id&sort=ASC HTTP/1.1" 200
+2023-03-05 16:59:28,360 - uvicorn.access - INFO - 127.0.0.1:63869 - "OPTIONS /desks?filter=%7B%22id%22%3A%5B5&filter=31&filter=6&filter=7%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:28,369 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users?filter=%7B%22id%22%3A%5B2&filter=1%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:28,397 - uvicorn.access - INFO - 127.0.0.1:63869 - "GET /desks?filter=%7B%22id%22%3A%5B5&filter=31&filter=6&filter=7%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:29,309 - uvicorn.access - INFO - 127.0.0.1:63869 - "OPTIONS /desks?filter=%7B%7D&range=0&range=24&sort=id&sort=DESC HTTP/1.1" 200
+2023-03-05 16:59:29,310 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /users?filter=%7B%7D&range=0&range=24&sort=id&sort=DESC HTTP/1.1" 200
+2023-03-05 16:59:29,312 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /bookings/2 HTTP/1.1" 200
+2023-03-05 16:59:29,321 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /desks?filter=%7B%7D&range=0&range=24&sort=id&sort=DESC HTTP/1.1" 200
+2023-03-05 16:59:29,333 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users?filter=%7B%7D&range=0&range=24&sort=id&sort=DESC HTTP/1.1" 200
+2023-03-05 16:59:29,339 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /bookings/2 HTTP/1.1" 200
+2023-03-05 16:59:29,359 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /desks?filter=%7B%22id%22%3A%5B31%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:29,362 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /users?filter=%7B%22id%22%3A%5B1%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:29,369 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /desks?filter=%7B%22id%22%3A%5B31%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:29,376 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /users?filter=%7B%22id%22%3A%5B1%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:31,449 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /desks?filter=%7B%22id%22%3A%5B44%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:31,457 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /desks?filter=%7B%22id%22%3A%5B44%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:32,131 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /desks?filter=%7B%22id%22%3A%5B5&filter=44&filter=6&filter=7%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:32,139 - uvicorn.access - INFO - 127.0.0.1:63915 - "GET /users?filter=%7B%22id%22%3A%5B2&filter=1%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:32,142 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /desks?filter=%7B%22id%22%3A%5B5&filter=44&filter=6&filter=7%5D%7D HTTP/1.1" 200
+2023-03-05 16:59:33,508 - uvicorn.access - INFO - 127.0.0.1:63873 - "OPTIONS /bookings/2 HTTP/1.1" 200
+2023-03-05 16:59:33,522 - uvicorn.access - INFO - 127.0.0.1:63873 - "PATCH /bookings/2 HTTP/1.1" 200
+2023-03-05 16:59:33,532 - uvicorn.access - INFO - 127.0.0.1:63873 - "GET /bookings?filter=%7B%7D&range=0&range=9&sort=id&sort=ASC HTTP/1.1" 200
+2023-03-05 16:59:38,984 - uvicorn.access - INFO - 127.0.0.1:63916 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:38,987 - uvicorn.access - INFO - 127.0.0.1:63916 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:39,207 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:39,211 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:39,214 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:39,217 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:40,005 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:40,008 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:40,925 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 16:59:40,928 - uvicorn.access - INFO - 127.0.0.1:63917 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:12,766 - uvicorn.access - INFO - 127.0.0.1:63918 - "OPTIONS /register HTTP/1.1" 200
+2023-03-05 17:00:12,965 - uvicorn.access - INFO - 127.0.0.1:63918 - "POST /register HTTP/1.1" 200
+2023-03-05 17:00:12,978 - uvicorn.access - INFO - 127.0.0.1:63918 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:12,981 - uvicorn.access - INFO - 127.0.0.1:63918 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:12,984 - uvicorn.access - INFO - 127.0.0.1:63918 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:12,987 - uvicorn.access - INFO - 127.0.0.1:63918 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:19,246 - uvicorn.access - INFO - 127.0.0.1:63919 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:19,248 - uvicorn.access - INFO - 127.0.0.1:63919 - "GET /users/me/ HTTP/1.1" 401
+2023-03-05 17:00:23,345 - uvicorn.error - INFO - Shutting down
+2023-03-05 17:00:23,454 - uvicorn.error - INFO - Waiting for application shutdown.
+2023-03-05 17:00:23,454 - uvicorn.error - INFO - Application shutdown complete.
+2023-03-05 17:00:23,455 - uvicorn.error - INFO - Finished server process [928]

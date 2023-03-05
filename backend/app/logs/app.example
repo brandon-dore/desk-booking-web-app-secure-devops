@@ -1,0 +1,219 @@
+2023-03-05 16:59:16,482 - app.main - INFO - eb0d84f7-187f-4120-8c93-660c62d38f6a - Start of GET request to path /users/me/
+2023-03-05 16:59:16,492 - app.auth - INFO - eb0d84f7-187f-4120-8c93-660c62d38f6a - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:16,494 - app.main - INFO - eb0d84f7-187f-4120-8c93-660c62d38f6a - Response sent, completed in 11.01ms with status code 200
+2023-03-05 16:59:16,495 - app.main - INFO - 7035a577-4eec-485e-9d9d-4f2a3dcff6b8 - Start of GET request to path /users/me/
+2023-03-05 16:59:16,497 - app.auth - INFO - 7035a577-4eec-485e-9d9d-4f2a3dcff6b8 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:16,499 - app.main - INFO - 7035a577-4eec-485e-9d9d-4f2a3dcff6b8 - Response sent, completed in 3.50ms with status code 200
+2023-03-05 16:59:18,081 - app.main - INFO - 5c1de059-375c-41a4-b84b-15d8e792df90 - Start of GET request to path /users/me/
+2023-03-05 16:59:18,084 - app.auth - INFO - 5c1de059-375c-41a4-b84b-15d8e792df90 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:18,086 - app.main - INFO - 5c1de059-375c-41a4-b84b-15d8e792df90 - Response sent, completed in 4.00ms with status code 200
+2023-03-05 16:59:18,087 - app.main - INFO - 00e157ba-2b87-48d8-bf85-a04fef3359bc - Start of GET request to path /users/me/
+2023-03-05 16:59:18,089 - app.auth - INFO - 00e157ba-2b87-48d8-bf85-a04fef3359bc - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:18,091 - app.main - INFO - 00e157ba-2b87-48d8-bf85-a04fef3359bc - Response sent, completed in 3.53ms with status code 200
+2023-03-05 16:59:18,092 - app.main - INFO - 5ac00283-e0cc-4e4d-9623-ebbec8f7478e - Start of GET request to path /users/me/
+2023-03-05 16:59:18,094 - app.auth - INFO - 5ac00283-e0cc-4e4d-9623-ebbec8f7478e - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:18,096 - app.main - INFO - 5ac00283-e0cc-4e4d-9623-ebbec8f7478e - Response sent, completed in 3.50ms with status code 200
+2023-03-05 16:59:18,097 - app.main - INFO - 4461f244-8f30-4e28-b554-70f8e6855aeb - Start of GET request to path /users/me/
+2023-03-05 16:59:18,099 - app.auth - INFO - 4461f244-8f30-4e28-b554-70f8e6855aeb - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:18,102 - app.main - INFO - 4461f244-8f30-4e28-b554-70f8e6855aeb - Response sent, completed in 4.03ms with status code 200
+2023-03-05 16:59:20,499 - app.main - INFO - 072010d4-748d-4687-bb16-e0d22fa98798 - Start of GET request to path /users/me/
+2023-03-05 16:59:20,500 - app.main - INFO - 6c81806e-b856-4a2f-9943-ff2c837b1681 - Start of GET request to path /rooms
+2023-03-05 16:59:20,503 - app.auth - INFO - 6c81806e-b856-4a2f-9943-ff2c837b1681 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,529 - app.auth - INFO - 072010d4-748d-4687-bb16-e0d22fa98798 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,530 - app.main - INFO - 072010d4-748d-4687-bb16-e0d22fa98798 - Response sent, completed in 31.08ms with status code 200
+2023-03-05 16:59:20,531 - app.main - INFO - 53ed7ae8-3de4-4c4a-b629-ddf3f8174332 - Start of GET request to path /users/me/
+2023-03-05 16:59:20,533 - app.auth - INFO - 53ed7ae8-3de4-4c4a-b629-ddf3f8174332 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,565 - app.main - INFO - 53ed7ae8-3de4-4c4a-b629-ddf3f8174332 - Response sent, completed in 32.76ms with status code 200
+2023-03-05 16:59:20,566 - app.main - INFO - 8d25a76f-a097-4f97-87b2-294e7c2b83fb - Start of GET request to path /users/me/
+2023-03-05 16:59:20,567 - app.crud - INFO - 6c81806e-b856-4a2f-9943-ff2c837b1681 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Room'>)
+2023-03-05 16:59:20,569 - app.main - INFO - 6c81806e-b856-4a2f-9943-ff2c837b1681 - Response sent, completed in 68.34ms with status code 200
+2023-03-05 16:59:20,569 - app.auth - INFO - 8d25a76f-a097-4f97-87b2-294e7c2b83fb - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,571 - app.main - INFO - 86248f36-3a22-482e-a94b-3aff35cb276b - Start of GET request to path /rooms
+2023-03-05 16:59:20,573 - app.main - INFO - 8d25a76f-a097-4f97-87b2-294e7c2b83fb - Response sent, completed in 6.01ms with status code 200
+2023-03-05 16:59:20,575 - app.main - INFO - f5468530-0295-40a4-b6cd-3fdd12651dc0 - Start of GET request to path /users/me/
+2023-03-05 16:59:20,576 - app.auth - INFO - 86248f36-3a22-482e-a94b-3aff35cb276b - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,577 - app.auth - INFO - f5468530-0295-40a4-b6cd-3fdd12651dc0 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:20,579 - app.main - INFO - f5468530-0295-40a4-b6cd-3fdd12651dc0 - Response sent, completed in 4.01ms with status code 200
+2023-03-05 16:59:20,580 - app.crud - INFO - 86248f36-3a22-482e-a94b-3aff35cb276b - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Room'>)
+2023-03-05 16:59:20,581 - app.main - INFO - 86248f36-3a22-482e-a94b-3aff35cb276b - Response sent, completed in 10.51ms with status code 200
+2023-03-05 16:59:21,413 - app.main - INFO - 32888a95-3df7-4324-92f6-e1031553e805 - Start of GET request to path /rooms/1/desks
+2023-03-05 16:59:21,415 - app.auth - INFO - 32888a95-3df7-4324-92f6-e1031553e805 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:21,419 - app.crud - INFO - 32888a95-3df7-4324-92f6-e1031553e805 - Successfully retrived all DESK(ROOM_ID=1)
+2023-03-05 16:59:21,420 - app.main - INFO - 32888a95-3df7-4324-92f6-e1031553e805 - Response sent, completed in 7.01ms with status code 200
+2023-03-05 16:59:21,455 - app.main - INFO - 0d91c783-1a81-48d5-a5c0-01130ab57cc3 - Start of GET request to path /rooms/1/bookings/2023-03-05
+2023-03-05 16:59:21,457 - app.auth - INFO - 0d91c783-1a81-48d5-a5c0-01130ab57cc3 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:21,462 - app.main - INFO - 0d91c783-1a81-48d5-a5c0-01130ab57cc3 - Response sent, completed in 7.02ms with status code 200
+2023-03-05 16:59:21,466 - app.main - INFO - 7859fcb1-e38f-43a8-9d55-f69774e3eb4c - Start of GET request to path /users/1
+2023-03-05 16:59:21,468 - app.auth - INFO - 7859fcb1-e38f-43a8-9d55-f69774e3eb4c - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:21,471 - app.main - INFO - 7859fcb1-e38f-43a8-9d55-f69774e3eb4c - Response sent, completed in 4.50ms with status code 200
+2023-03-05 16:59:23,203 - app.main - INFO - c29dacd3-1f6f-4862-926e-c2c0daa17636 - Start of POST request to path /bookings
+2023-03-05 16:59:23,207 - app.auth - INFO - c29dacd3-1f6f-4862-926e-c2c0daa17636 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:23,207 - app.auth - INFO - c29dacd3-1f6f-4862-926e-c2c0daa17636 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:23,215 - app.crud - INFO - c29dacd3-1f6f-4862-926e-c2c0daa17636 - BOOKING(ID=4, USER_ID=1) successfully created
+2023-03-05 16:59:23,217 - app.main - INFO - c29dacd3-1f6f-4862-926e-c2c0daa17636 - Response sent, completed in 12.62ms with status code 200
+2023-03-05 16:59:23,225 - app.main - INFO - 0293d408-c3e7-472f-b0fe-bbabc46a67aa - Start of GET request to path /rooms/1/bookings/2023-03-05
+2023-03-05 16:59:23,228 - app.auth - INFO - 0293d408-c3e7-472f-b0fe-bbabc46a67aa - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:23,231 - app.main - INFO - 0293d408-c3e7-472f-b0fe-bbabc46a67aa - Response sent, completed in 5.16ms with status code 200
+2023-03-05 16:59:23,250 - app.main - INFO - aa6c4f99-4af8-4344-b7de-e6e4846260ed - Start of GET request to path /users/1
+2023-03-05 16:59:23,253 - app.auth - INFO - aa6c4f99-4af8-4344-b7de-e6e4846260ed - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:23,255 - app.main - INFO - aa6c4f99-4af8-4344-b7de-e6e4846260ed - Response sent, completed in 4.09ms with status code 200
+2023-03-05 16:59:23,256 - app.main - INFO - e2266ccf-4ba8-4268-972a-5048a712f948 - Start of GET request to path /users/1
+2023-03-05 16:59:23,259 - app.auth - INFO - e2266ccf-4ba8-4268-972a-5048a712f948 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:23,261 - app.main - INFO - e2266ccf-4ba8-4268-972a-5048a712f948 - Response sent, completed in 5.00ms with status code 200
+2023-03-05 16:59:24,294 - app.main - INFO - b9eece4d-7ba4-45e6-b147-9bbc2c7dfa91 - Start of GET request to path /rooms/2/desks
+2023-03-05 16:59:24,296 - app.auth - INFO - b9eece4d-7ba4-45e6-b147-9bbc2c7dfa91 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:24,298 - app.crud - INFO - b9eece4d-7ba4-45e6-b147-9bbc2c7dfa91 - Successfully retrived all DESK(ROOM_ID=2)
+2023-03-05 16:59:24,300 - app.main - INFO - b9eece4d-7ba4-45e6-b147-9bbc2c7dfa91 - Response sent, completed in 6.02ms with status code 200
+2023-03-05 16:59:24,304 - app.main - INFO - 92063cca-0b7c-4563-ba46-879a44599d07 - Start of GET request to path /rooms/2/bookings/2023-03-05
+2023-03-05 16:59:24,306 - app.auth - INFO - 92063cca-0b7c-4563-ba46-879a44599d07 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:24,308 - app.main - INFO - 92063cca-0b7c-4563-ba46-879a44599d07 - Response sent, completed in 3.50ms with status code 200
+2023-03-05 16:59:24,324 - app.main - INFO - 5e97ea5e-25ee-49ef-ae37-dedf02b3ebeb - Start of GET request to path /rooms/2/bookings/2023-03-05
+2023-03-05 16:59:24,326 - app.auth - INFO - 5e97ea5e-25ee-49ef-ae37-dedf02b3ebeb - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:24,328 - app.main - INFO - 5e97ea5e-25ee-49ef-ae37-dedf02b3ebeb - Response sent, completed in 4.51ms with status code 200
+2023-03-05 16:59:26,577 - app.main - INFO - d34595c8-f78e-4137-b49f-0afb35ea1f13 - Start of OPTIONS request to path /rooms/2/bookings/2023-03-15
+2023-03-05 16:59:26,578 - app.main - INFO - d34595c8-f78e-4137-b49f-0afb35ea1f13 - Response sent, completed in 1.51ms with status code 200
+2023-03-05 16:59:26,580 - app.main - INFO - ad61af3b-aacd-4686-8594-206b7a984ea6 - Start of GET request to path /rooms/2/bookings/2023-03-15
+2023-03-05 16:59:26,582 - app.auth - INFO - ad61af3b-aacd-4686-8594-206b7a984ea6 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:26,585 - app.main - INFO - ad61af3b-aacd-4686-8594-206b7a984ea6 - Response sent, completed in 5.00ms with status code 200
+2023-03-05 16:59:27,321 - app.main - INFO - 8e7ae8ac-aeb9-428c-a1fc-717d28de52e4 - Start of GET request to path /users/me/
+2023-03-05 16:59:27,323 - app.auth - INFO - 8e7ae8ac-aeb9-428c-a1fc-717d28de52e4 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,324 - app.main - INFO - 8e7ae8ac-aeb9-428c-a1fc-717d28de52e4 - Response sent, completed in 3.00ms with status code 200
+2023-03-05 16:59:27,326 - app.main - INFO - dfcfc284-5603-48ef-b3be-7a572a2653ae - Start of GET request to path /users/me/
+2023-03-05 16:59:27,328 - app.auth - INFO - dfcfc284-5603-48ef-b3be-7a572a2653ae - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,329 - app.main - INFO - dfcfc284-5603-48ef-b3be-7a572a2653ae - Response sent, completed in 3.50ms with status code 200
+2023-03-05 16:59:27,331 - app.main - INFO - e96ecea3-44d4-4d90-acfe-5422427838e5 - Start of GET request to path /users/me/
+2023-03-05 16:59:27,333 - app.auth - INFO - e96ecea3-44d4-4d90-acfe-5422427838e5 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,334 - app.main - INFO - e96ecea3-44d4-4d90-acfe-5422427838e5 - Response sent, completed in 3.00ms with status code 200
+2023-03-05 16:59:27,336 - app.main - INFO - 420148a0-fd96-45c9-a317-6ee591e76554 - Start of GET request to path /users/me/
+2023-03-05 16:59:27,338 - app.auth - INFO - 420148a0-fd96-45c9-a317-6ee591e76554 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,339 - app.main - INFO - 420148a0-fd96-45c9-a317-6ee591e76554 - Response sent, completed in 3.00ms with status code 200
+2023-03-05 16:59:27,363 - app.main - INFO - 93aebfff-8047-4e9d-8231-9f425b17b3d1 - Start of GET request to path /users/me/
+2023-03-05 16:59:27,366 - app.auth - INFO - 93aebfff-8047-4e9d-8231-9f425b17b3d1 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,367 - app.main - INFO - 93aebfff-8047-4e9d-8231-9f425b17b3d1 - Response sent, completed in 3.41ms with status code 200
+2023-03-05 16:59:27,368 - app.main - INFO - a6db957f-efa2-4aed-b0c7-4dc5cc5a4684 - Start of GET request to path /users/me/
+2023-03-05 16:59:27,370 - app.auth - INFO - a6db957f-efa2-4aed-b0c7-4dc5cc5a4684 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:27,371 - app.main - INFO - a6db957f-efa2-4aed-b0c7-4dc5cc5a4684 - Response sent, completed in 3.00ms with status code 200
+2023-03-05 16:59:28,272 - app.main - INFO - 5305a875-f704-4f3e-a233-ba2a2157969d - Start of GET request to path /bookings
+2023-03-05 16:59:28,274 - app.auth - INFO - 5305a875-f704-4f3e-a233-ba2a2157969d - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:28,275 - app.auth - INFO - 5305a875-f704-4f3e-a233-ba2a2157969d - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:28,277 - app.crud - INFO - 5305a875-f704-4f3e-a233-ba2a2157969d - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Booking'>)
+2023-03-05 16:59:28,278 - app.main - INFO - 5305a875-f704-4f3e-a233-ba2a2157969d - Response sent, completed in 6.51ms with status code 200
+2023-03-05 16:59:28,358 - app.main - INFO - 3477ae36-7c94-4ddb-9ae7-05e3c2d53e7e - Start of OPTIONS request to path /desks
+2023-03-05 16:59:28,359 - app.main - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - Start of GET request to path /users
+2023-03-05 16:59:28,360 - app.main - INFO - 3477ae36-7c94-4ddb-9ae7-05e3c2d53e7e - Response sent, completed in 1.50ms with status code 200
+2023-03-05 16:59:28,362 - app.main - INFO - e4db65a5-7d28-4df4-abd3-ee3abdead8be - Start of GET request to path /desks
+2023-03-05 16:59:28,362 - app.auth - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:28,364 - app.auth - INFO - e4db65a5-7d28-4df4-abd3-ee3abdead8be - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:28,364 - app.auth - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:28,365 - app.auth - INFO - e4db65a5-7d28-4df4-abd3-ee3abdead8be - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:28,367 - app.crud - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.User'>)
+2023-03-05 16:59:28,367 - app.main - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - Retrived users
+2023-03-05 16:59:28,368 - app.main - INFO - 885d25e7-8556-48d4-871f-f1f89fe504b7 - Response sent, completed in 9.01ms with status code 200
+2023-03-05 16:59:28,395 - app.crud - INFO - e4db65a5-7d28-4df4-abd3-ee3abdead8be - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Desk'>)
+2023-03-05 16:59:28,397 - app.main - INFO - e4db65a5-7d28-4df4-abd3-ee3abdead8be - Response sent, completed in 34.03ms with status code 200
+2023-03-05 16:59:29,308 - app.main - INFO - e7a0c578-ec66-4e05-ac3f-052efc25f8cb - Start of OPTIONS request to path /desks
+2023-03-05 16:59:29,308 - app.main - INFO - 54c19997-18c9-4444-906e-91076c42c829 - Start of OPTIONS request to path /users
+2023-03-05 16:59:29,309 - app.main - INFO - e7a0c578-ec66-4e05-ac3f-052efc25f8cb - Response sent, completed in 1.00ms with status code 200
+2023-03-05 16:59:29,310 - app.main - INFO - 54c19997-18c9-4444-906e-91076c42c829 - Response sent, completed in 1.00ms with status code 200
+2023-03-05 16:59:29,311 - app.main - INFO - 7af8bca8-b0e2-40bb-97ad-8d5f570d2941 - Start of OPTIONS request to path /bookings/2
+2023-03-05 16:59:29,312 - app.main - INFO - 7af8bca8-b0e2-40bb-97ad-8d5f570d2941 - Response sent, completed in 0.50ms with status code 200
+2023-03-05 16:59:29,313 - app.main - INFO - 4f15b646-a776-41b2-bd18-c5f30fca63c4 - Start of GET request to path /desks
+2023-03-05 16:59:29,315 - app.auth - INFO - 4f15b646-a776-41b2-bd18-c5f30fca63c4 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:29,315 - app.auth - INFO - 4f15b646-a776-41b2-bd18-c5f30fca63c4 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:29,319 - app.crud - INFO - 4f15b646-a776-41b2-bd18-c5f30fca63c4 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Desk'>)
+2023-03-05 16:59:29,321 - app.main - INFO - 4f15b646-a776-41b2-bd18-c5f30fca63c4 - Response sent, completed in 8.01ms with status code 200
+2023-03-05 16:59:29,323 - app.main - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - Start of GET request to path /users
+2023-03-05 16:59:29,327 - app.auth - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:29,328 - app.auth - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:29,331 - app.crud - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.User'>)
+2023-03-05 16:59:29,331 - app.main - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - Retrived users
+2023-03-05 16:59:29,332 - app.main - INFO - bc53b11d-fc21-4151-952b-9bed6ab8b167 - Response sent, completed in 9.24ms with status code 200
+2023-03-05 16:59:29,334 - app.main - INFO - 434b9f38-04ff-4073-8c28-8889b0f37782 - Start of GET request to path /bookings/2
+2023-03-05 16:59:29,336 - app.auth - INFO - 434b9f38-04ff-4073-8c28-8889b0f37782 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:29,338 - app.main - INFO - 434b9f38-04ff-4073-8c28-8889b0f37782 - Response sent, completed in 3.50ms with status code 200
+2023-03-05 16:59:29,358 - app.main - INFO - e900425e-0996-406b-a2a9-70191bfcd96e - Start of OPTIONS request to path /desks
+2023-03-05 16:59:29,359 - app.main - INFO - e900425e-0996-406b-a2a9-70191bfcd96e - Response sent, completed in 0.00ms with status code 200
+2023-03-05 16:59:29,361 - app.main - INFO - 0b8dc222-4008-4d17-bd8a-91e1ee3aee19 - Start of OPTIONS request to path /users
+2023-03-05 16:59:29,361 - app.main - INFO - 0b8dc222-4008-4d17-bd8a-91e1ee3aee19 - Response sent, completed in 0.50ms with status code 200
+2023-03-05 16:59:29,363 - app.main - INFO - ceece2f9-ec8b-4222-8c6a-69295b1fcbae - Start of GET request to path /desks
+2023-03-05 16:59:29,365 - app.auth - INFO - ceece2f9-ec8b-4222-8c6a-69295b1fcbae - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:29,366 - app.auth - INFO - ceece2f9-ec8b-4222-8c6a-69295b1fcbae - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:29,367 - app.crud - INFO - ceece2f9-ec8b-4222-8c6a-69295b1fcbae - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Desk'>)
+2023-03-05 16:59:29,369 - app.main - INFO - ceece2f9-ec8b-4222-8c6a-69295b1fcbae - Response sent, completed in 6.00ms with status code 200
+2023-03-05 16:59:29,371 - app.main - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - Start of GET request to path /users
+2023-03-05 16:59:29,373 - app.auth - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:29,373 - app.auth - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:29,374 - app.crud - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.User'>)
+2023-03-05 16:59:29,375 - app.main - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - Retrived users
+2023-03-05 16:59:29,376 - app.main - INFO - 4749ce4b-322b-4077-a222-f6af5d03b285 - Response sent, completed in 4.50ms with status code 200
+2023-03-05 16:59:31,447 - app.main - INFO - 6f892506-e572-4496-be0c-ffe44b6dc9f1 - Start of OPTIONS request to path /desks
+2023-03-05 16:59:31,448 - app.main - INFO - 6f892506-e572-4496-be0c-ffe44b6dc9f1 - Response sent, completed in 0.00ms with status code 200
+2023-03-05 16:59:31,450 - app.main - INFO - 8341c365-0fdf-4491-8fd1-b360f18f71e2 - Start of GET request to path /desks
+2023-03-05 16:59:31,452 - app.auth - INFO - 8341c365-0fdf-4491-8fd1-b360f18f71e2 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:31,453 - app.auth - INFO - 8341c365-0fdf-4491-8fd1-b360f18f71e2 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:31,454 - app.crud - INFO - 8341c365-0fdf-4491-8fd1-b360f18f71e2 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Desk'>)
+2023-03-05 16:59:31,456 - app.main - INFO - 8341c365-0fdf-4491-8fd1-b360f18f71e2 - Response sent, completed in 6.50ms with status code 200
+2023-03-05 16:59:32,129 - app.main - INFO - a2b392f6-af0d-4869-a2f6-a4d215d47dd0 - Start of OPTIONS request to path /desks
+2023-03-05 16:59:32,129 - app.main - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - Start of GET request to path /users
+2023-03-05 16:59:32,131 - app.main - INFO - a2b392f6-af0d-4869-a2f6-a4d215d47dd0 - Response sent, completed in 1.51ms with status code 200
+2023-03-05 16:59:32,133 - app.main - INFO - 6a5b760c-e94e-4d0d-9218-144f37d141c8 - Start of GET request to path /desks
+2023-03-05 16:59:32,133 - app.auth - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:32,135 - app.auth - INFO - 6a5b760c-e94e-4d0d-9218-144f37d141c8 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:32,135 - app.auth - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:32,136 - app.auth - INFO - 6a5b760c-e94e-4d0d-9218-144f37d141c8 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:32,137 - app.crud - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.User'>)
+2023-03-05 16:59:32,138 - app.main - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - Retrived users
+2023-03-05 16:59:32,138 - app.crud - INFO - 6a5b760c-e94e-4d0d-9218-144f37d141c8 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Desk'>)
+2023-03-05 16:59:32,139 - app.main - INFO - 308af21c-cb12-4bab-93c5-0bd4b5cc7830 - Response sent, completed in 9.01ms with status code 200
+2023-03-05 16:59:32,142 - app.main - INFO - 6a5b760c-e94e-4d0d-9218-144f37d141c8 - Response sent, completed in 8.51ms with status code 200
+2023-03-05 16:59:33,506 - app.main - INFO - 84b3cc3e-811e-4720-8526-c0db5a51e2ad - Start of OPTIONS request to path /bookings/2
+2023-03-05 16:59:33,507 - app.main - INFO - 84b3cc3e-811e-4720-8526-c0db5a51e2ad - Response sent, completed in 0.50ms with status code 200
+2023-03-05 16:59:33,511 - app.main - INFO - 325c9c28-c88d-4673-963e-b94c31dc44a4 - Start of PATCH request to path /bookings/2
+2023-03-05 16:59:33,514 - app.auth - INFO - 325c9c28-c88d-4673-963e-b94c31dc44a4 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:33,521 - app.crud - INFO - 325c9c28-c88d-4673-963e-b94c31dc44a4 - Successfully updated MODEL(ID=Booking.id MODEL=<class 'app.models.Booking'>)
+2023-03-05 16:59:33,522 - app.main - INFO - 325c9c28-c88d-4673-963e-b94c31dc44a4 - Response sent, completed in 10.01ms with status code 200
+2023-03-05 16:59:33,527 - app.main - INFO - e43064e2-9935-4811-bed3-0b786eb31664 - Start of GET request to path /bookings
+2023-03-05 16:59:33,529 - app.auth - INFO - e43064e2-9935-4811-bed3-0b786eb31664 - Retrived current USER(ID=1 USERNAME=admin)
+2023-03-05 16:59:33,530 - app.auth - INFO - e43064e2-9935-4811-bed3-0b786eb31664 - USER(ID=1 USERNAME=admin) is authorised to use this endpoint as admin
+2023-03-05 16:59:33,531 - app.crud - INFO - e43064e2-9935-4811-bed3-0b786eb31664 - Successfully retrived all entities for MODEL(MODEL=<class 'app.models.Booking'>)
+2023-03-05 16:59:33,532 - app.main - INFO - e43064e2-9935-4811-bed3-0b786eb31664 - Response sent, completed in 5.50ms with status code 200
+2023-03-05 16:59:38,982 - app.main - INFO - cd8d42c4-8111-48e1-8fcd-816eb8718146 - Start of GET request to path /users/me/
+2023-03-05 16:59:38,984 - app.main - INFO - cd8d42c4-8111-48e1-8fcd-816eb8718146 - Response sent, completed in 2.00ms with status code 401
+2023-03-05 16:59:38,985 - app.main - INFO - 709e492a-5cbd-4337-aae6-67bde99f0c65 - Start of GET request to path /users/me/
+2023-03-05 16:59:38,987 - app.main - INFO - 709e492a-5cbd-4337-aae6-67bde99f0c65 - Response sent, completed in 1.50ms with status code 401
+2023-03-05 16:59:38,988 - app.main - INFO - ac7344f9-e906-43a1-88de-ac404b1ea50f - Start of GET request to path /users/me/
+2023-03-05 16:59:38,991 - app.main - INFO - ac7344f9-e906-43a1-88de-ac404b1ea50f - Response sent, completed in 1.51ms with status code 401
+2023-03-05 16:59:39,205 - app.main - INFO - 3c5f09f8-698d-4939-b910-389c60b6801b - Start of GET request to path /users/me/
+2023-03-05 16:59:39,206 - app.main - INFO - 3c5f09f8-698d-4939-b910-389c60b6801b - Response sent, completed in 1.00ms with status code 401
+2023-03-05 16:59:39,209 - app.main - INFO - 77a3454a-64cc-4653-82ad-b3fe2393d8a1 - Start of GET request to path /users/me/
+2023-03-05 16:59:39,210 - app.main - INFO - 77a3454a-64cc-4653-82ad-b3fe2393d8a1 - Response sent, completed in 1.50ms with status code 401
+2023-03-05 16:59:39,212 - app.main - INFO - 52b63567-2fef-4b47-b29e-ceecbdbabe1b - Start of GET request to path /users/me/
+2023-03-05 16:59:39,213 - app.main - INFO - 52b63567-2fef-4b47-b29e-ceecbdbabe1b - Response sent, completed in 1.00ms with status code 401
+2023-03-05 16:59:39,215 - app.main - INFO - 34b7d69d-e04b-4430-a084-1f3cf2f8f4a7 - Start of GET request to path /users/me/
+2023-03-05 16:59:39,216 - app.main - INFO - 34b7d69d-e04b-4430-a084-1f3cf2f8f4a7 - Response sent, completed in 1.50ms with status code 401
+2023-03-05 16:59:40,002 - app.main - INFO - 8e828e04-9470-4694-bb2c-87ab680c27cd - Start of GET request to path /users/me/
+2023-03-05 16:59:40,004 - app.main - INFO - 8e828e04-9470-4694-bb2c-87ab680c27cd - Response sent, completed in 1.50ms with status code 401
+2023-03-05 16:59:40,006 - app.main - INFO - 94b6d0cb-4892-468c-b88d-4268d2bcbc4c - Start of GET request to path /users/me/
+2023-03-05 16:59:40,007 - app.main - INFO - 94b6d0cb-4892-468c-b88d-4268d2bcbc4c - Response sent, completed in 1.00ms with status code 401
+2023-03-05 16:59:40,922 - app.main - INFO - fb67f393-ef23-4f0c-a419-4de4638d0fb5 - Start of GET request to path /users/me/
+2023-03-05 16:59:40,925 - app.main - INFO - fb67f393-ef23-4f0c-a419-4de4638d0fb5 - Response sent, completed in 1.87ms with status code 401
+2023-03-05 16:59:40,926 - app.main - INFO - 96649a40-a2ce-4149-9f9b-fc918fc42426 - Start of GET request to path /users/me/
+2023-03-05 16:59:40,928 - app.main - INFO - 96649a40-a2ce-4149-9f9b-fc918fc42426 - Response sent, completed in 1.50ms with status code 401
+2023-03-05 17:00:12,764 - app.main - INFO - 0f3a68d6-321d-4578-94fe-dbf97b8e8fdd - Start of OPTIONS request to path /register
+2023-03-05 17:00:12,765 - app.main - INFO - 0f3a68d6-321d-4578-94fe-dbf97b8e8fdd - Response sent, completed in 0.00ms with status code 200
+2023-03-05 17:00:12,766 - app.main - INFO - 9f6e897a-ff03-45c6-b886-33c2f2b8bf61 - Start of POST request to path /register
+2023-03-05 17:00:12,769 - app.main - INFO - 9f6e897a-ff03-45c6-b886-33c2f2b8bf61 - Creating user
+2023-03-05 17:00:12,963 - app.crud - INFO - 9f6e897a-ff03-45c6-b886-33c2f2b8bf61 - USER(ID=7, USERNAME=testABCDE) successfully created
+2023-03-05 17:00:12,965 - app.main - INFO - 9f6e897a-ff03-45c6-b886-33c2f2b8bf61 - Response sent, completed in 198.38ms with status code 200
+2023-03-05 17:00:12,975 - app.main - INFO - e53c2e0b-7824-4254-ae7a-d8e8efc5dd9c - Start of GET request to path /users/me/
+2023-03-05 17:00:12,978 - app.main - INFO - e53c2e0b-7824-4254-ae7a-d8e8efc5dd9c - Response sent, completed in 3.00ms with status code 401
+2023-03-05 17:00:12,979 - app.main - INFO - 808424d1-6805-4211-ba9c-8f8be30ed35b - Start of GET request to path /users/me/
+2023-03-05 17:00:12,980 - app.main - INFO - 808424d1-6805-4211-ba9c-8f8be30ed35b - Response sent, completed in 0.50ms with status code 401
+2023-03-05 17:00:12,982 - app.main - INFO - cf11e8c1-0e41-427a-9744-6fc231c266ee - Start of GET request to path /users/me/
+2023-03-05 17:00:12,984 - app.main - INFO - cf11e8c1-0e41-427a-9744-6fc231c266ee - Response sent, completed in 1.50ms with status code 401
+2023-03-05 17:00:12,985 - app.main - INFO - ff9cda7b-a7ef-4505-b02d-1facae49fa7e - Start of GET request to path /users/me/
+2023-03-05 17:00:12,987 - app.main - INFO - ff9cda7b-a7ef-4505-b02d-1facae49fa7e - Response sent, completed in 1.00ms with status code 401
+2023-03-05 17:00:19,241 - app.main - INFO - 54b9ab40-a757-4853-9753-a4ce33779056 - Start of GET request to path /users/me/
+2023-03-05 17:00:19,245 - app.main - INFO - 54b9ab40-a757-4853-9753-a4ce33779056 - Response sent, completed in 3.01ms with status code 401
+2023-03-05 17:00:19,247 - app.main - INFO - a199f322-8ebc-4b02-a4a2-51162d96f115 - Start of GET request to path /users/me/
+2023-03-05 17:00:19,248 - app.main - INFO - a199f322-8ebc-4b02-a4a2-51162d96f115 - Response sent, completed in 1.00ms with status code 401
