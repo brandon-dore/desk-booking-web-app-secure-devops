@@ -1,6 +1,6 @@
 import axios from "axios";
-import * as qs from "qs";
 import jwt_decode from "jwt-decode";
+import * as qs from "qs";
 
 const API_URL = "http://localhost:8000/";
 

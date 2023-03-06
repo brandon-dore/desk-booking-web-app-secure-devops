@@ -1,5 +1,4 @@
 // in src/Dashboard.js
-import * as React from "react";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
 const Dashboard = () => {

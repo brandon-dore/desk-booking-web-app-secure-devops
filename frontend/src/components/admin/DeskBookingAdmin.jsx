@@ -1,35 +1,38 @@
 // in src/App.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { transform, isEqual, isObject } from "lodash";
-import { Container, Box, CssBaseline, Typography } from "@mui/material";
-import UserIcon from "@mui/icons-material/Group";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import DesktopWindowsIcon from "@mui/icons-material/DesktopWindows";
+import UserIcon from "@mui/icons-material/Group";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import { Box, Container, CssBaseline, Typography } from "@mui/material";
+import { isEqual, isObject, transform } from "lodash";
 import simpleRestDataProvider from "ra-data-simple-rest";
 
-import { Admin, Resource, fetchUtils, Layout } from "react-admin";
-import { UserList, UserEdit, UserCreate } from "./users";
-import { RoomList, RoomEdit, RoomCreate } from "./rooms";
-import { BookingList, BookingEdit, BookingCreate } from "./bookings";
-import { DeskList, DeskEdit, DeskCreate } from "./desks";
-import Dashboard from "./Dashboard";
-import APIService from "../services/api.service";
+import { Admin, fetchUtils, Layout, Resource } from "react-admin";
 import TopBar from "../header/CommonAppBar";
+import APIService from "../services/api.service";
+import { BookingCreate, BookingEdit, BookingList } from "./bookings";
+import Dashboard from "./Dashboard";
+import { DeskCreate, DeskEdit, DeskList } from "./desks";
+import { RoomCreate, RoomEdit, RoomList } from "./rooms";
+import { UserCreate, UserEdit, UserList } from "./users";
 
 // const httpClient = fetchUtils.fetchJson;
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
-      options.headers = new Headers({ Accept: 'application/json' });
+    options.headers = new Headers({ Accept: "application/json" });
   }
-  const token = JSON.parse(localStorage.getItem('user'));
-  options.headers.set('Authorization', `Bearer ${token.access_token}`);
+  const token = JSON.parse(localStorage.getItem("user"));
+  options.headers.set("Authorization", `Bearer ${token.access_token}`);
   return fetchUtils.fetchJson(url, options);
-}
+};
 
-const baseDataProvider = simpleRestDataProvider("http://localhost:8000", httpClient);
+const baseDataProvider = simpleRestDataProvider(
+  "http://localhost:8000",
+  httpClient
+);
 
 const diff = (object, base) => {
   return transform(object, (result, value, key) => {
@@ -47,9 +50,9 @@ export const dataProvider = {
       method: "PATCH",
       body: JSON.stringify(diff(params.data, params.previousData)),
       headers: new Headers({
-        "Authorization":
-        ("Bearer " + JSON.parse(localStorage.getItem("user")).access_token)
-    })
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("user")).access_token,
+      }),
     }).then(({ json }) => ({ data: json })),
 };
 

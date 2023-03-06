@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Container, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import TopBar from "../header/CommonAppBar";
 import APIService from "../services/api.service";
-import { Typography, Container } from "@mui/material";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(undefined);

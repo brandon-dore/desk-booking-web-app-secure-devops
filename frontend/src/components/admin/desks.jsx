@@ -1,16 +1,15 @@
-import * as React from "react";
 import {
+  Create,
   Datagrid,
+  Edit,
   List,
   NumberField,
-  TextField,
-  ReferenceField,
-  Edit,
   NumberInput,
+  ReferenceField,
   ReferenceInput,
   SelectInput,
   SimpleForm,
-  Create,
+  TextField,
 } from "react-admin";
 
 export const DeskList = () => (

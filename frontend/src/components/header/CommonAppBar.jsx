@@ -1,26 +1,25 @@
+import DeskIcon from "@mui/icons-material/Desk";
 import {
-  IconButton,
-  Button,
-  Typography,
-  Toolbar,
   AppBar,
-  Menu,
-  MenuItem,
   Box,
-  Container,
-  Tooltip,
+  Button,
   Card,
   CardContent,
-  CardActions,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
   Modal,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.service";
-import APIService from "../services/api.service";
-import DeskIcon from "@mui/icons-material/Desk";
-import Avatar from "@mui/material/Avatar";
 import sloth from "../../avatar.png";
+import APIService from "../services/api.service";
+import AuthService from "../services/auth.service";
 
 const style = {
   position: "absolute",

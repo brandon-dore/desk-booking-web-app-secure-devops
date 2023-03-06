@@ -1,18 +1,17 @@
-import * as React from "react";
 import {
   BooleanField,
+  BooleanInput,
+  Create,
   Datagrid,
   DateField,
-  List,
-  ReferenceField,
-  TextField,
-  BooleanInput,
   DateInput,
   Edit,
+  List,
+  ReferenceField,
   ReferenceInput,
   SelectInput,
   SimpleForm,
-  Create,
+  TextField,
 } from "react-admin";
 
 export const BookingList = () => (

@@ -1,17 +1,17 @@
+import { useEffect, useLayoutEffect } from "react";
 import {
+  Navigate,
   Route,
   Routes,
-  Navigate,
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import DeskBooking from "./components/desk-booking/DeskBooking";
-import UserBookings from "./components/desk-booking/UserBookings";
-import Home from "./components/desk-booking/Home";
 import { DeskBookingAdmin } from "./components/admin/DeskBookingAdmin";
 import { Login } from "./components/auth/Login";
 import { SignUp } from "./components/auth/SignUp";
-import { useEffect, useLayoutEffect } from "react";
+import DeskBooking from "./components/desk-booking/DeskBooking";
+import Home from "./components/desk-booking/Home";
+import UserBookings from "./components/desk-booking/UserBookings";
 import AuthService from "./components/services/auth.service";
 import { NotFound } from "./NotFound";
 

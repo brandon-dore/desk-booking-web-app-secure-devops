@@ -1,5 +1,4 @@
-import React from "react";
-import { Typography, Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 export const NotFound = () => {
   return (

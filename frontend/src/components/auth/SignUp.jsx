@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import LoadingButton from "@mui/lab/LoadingButton";
 import {
-  TextField,
-  Grid,
-  Container,
   Box,
+  Container,
   CssBaseline,
+  Grid,
+  TextField,
   Typography,
 } from "@mui/material";
-import LoadingButton from "@mui/lab/LoadingButton";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import TopBar from "../header/CommonAppBar";
 import AuthService from "../services/auth.service";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 export const SignUp = () => {
   const [loading, setLoading] = useState(false);

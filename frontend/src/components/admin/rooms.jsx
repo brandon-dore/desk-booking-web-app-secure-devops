@@ -1,12 +1,11 @@
-import * as React from "react";
 import {
-  Datagrid,
-  List,
-  TextField,
-  Edit,
-  SimpleForm,
-  TextInput,
   Create,
+  Datagrid,
+  Edit,
+  List,
+  SimpleForm,
+  TextField,
+  TextInput,
 } from "react-admin";
 
 export const RoomList = () => (

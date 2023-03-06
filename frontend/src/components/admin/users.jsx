@@ -1,16 +1,15 @@
-import * as React from "react";
 import {
-  Datagrid,
-  EmailField,
-  List,
-  TextField,
   BooleanField,
   BooleanInput,
-  Edit,
-  SimpleForm,
-  TextInput,
   Create,
+  Datagrid,
+  Edit,
+  EmailField,
+  List,
   PasswordInput,
+  SimpleForm,
+  TextField,
+  TextInput,
 } from "react-admin";
 
 export const UserList = () => (
